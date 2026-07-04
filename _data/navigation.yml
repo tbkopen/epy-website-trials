@@ -1,0 +1,48 @@
+primary:
+  - label: Blog
+    url: /blog/
+  - label: Courses
+    url: /courses/
+  - label: About
+    url: /about/
+  - label: Contact
+    url: /contact/
+
+footer:
+  learn:
+    title: Learn
+    links:
+      - label: All Posts
+        url: /blog/
+      - label: Courses
+        url: /courses/
+      - label: Newsletter
+        url: /newsletter/
+  connect:
+    title: Connect
+    links:
+      - label: About
+        url: /about/
+      - label: Contact
+        url: /contact/
+  legal:
+    title: Legal
+    links:
+      - label: Privacy Policy
+        url: /privacy/
+      - label: Terms of Use
+        url: /terms/
+  follow:
+    title: Follow
+    links:
+      - label: Twitter
+        url: "https://twitter.com/[your-handle]"
+        external: true
+      - label: GitHub
+        url: "https://github.com/[your-handle]"
+        external: true
+      - label: LinkedIn
+        url: "https://www.linkedin.com/in/[your-handle]"
+        external: true
+      - label: RSS Feed
+        url: /feed.xml

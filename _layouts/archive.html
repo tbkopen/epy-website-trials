@@ -1,0 +1,26 @@
+---
+layout: default
+---
+
+<div class="page-header">
+  <div class="container">
+    {% include breadcrumbs.html l1_label="Blog" l1_url="/blog/" current=page.title %}
+    <h1 class="page-header__title">{{ page.title }}</h1>
+    <p class="page-header__desc">
+      {{ paginator.total_posts }} post{% if paginator.total_posts != 1 %}s{% endif %} in this collection.
+    </p>
+  </div>
+</div>
+
+<div class="container" style="padding-block: var(--space-10);">
+  {% if paginator.posts.size > 0 %}
+  <div class="post-grid">
+    {% for post in paginator.posts %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+  {% include pagination.html %}
+  {% else %}
+  <p class="empty-state">No posts here yet.</p>
+  {% endif %}
+</div>

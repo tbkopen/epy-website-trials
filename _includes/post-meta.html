@@ -1,0 +1,19 @@
+<div class="post-meta">
+  <time class="post-meta__date" datetime="{{ page.date | date_to_xmlschema }}">
+    {{ page.date | date: "%B %-d, %Y" }}
+  </time>
+  {% if page.author %}
+  <span class="post-meta__sep" aria-hidden="true">·</span>
+  <span class="post-meta__author">{{ page.author }}</span>
+  {% endif %}
+  <span class="post-meta__sep" aria-hidden="true">·</span>
+  <span class="post-meta__reading-time">{% include reading-time.html content=page.content %} min read</span>
+  {% if page.categories and page.categories.size > 0 %}
+  <span class="post-meta__sep" aria-hidden="true">·</span>
+  <ul class="post-meta__categories" role="list" aria-label="Categories">
+    {% for cat in page.categories %}
+    <li><a class="chip chip--filter" href="{{ '/blog/?category=' | append: cat | relative_url }}">{{ cat }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>

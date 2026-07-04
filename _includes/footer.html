@@ -1,0 +1,85 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner container">
+
+    <div class="site-footer__brand">
+      <a class="site-footer__logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+        {{ site.title }}
+      </a>
+      <p class="site-footer__tagline">{{ site.tagline }}</p>
+    </div>
+
+    <nav class="site-footer__nav" aria-label="Footer navigation">
+      {% assign footer = site.data.navigation.footer %}
+
+      <div class="site-footer__col">
+        <span class="site-footer__col-title">{{ footer.learn.title }}</span>
+        <ul role="list">
+          {% for link in footer.learn.links %}
+          <li><a href="{{ link.url | relative_url }}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <span class="site-footer__col-title">{{ footer.connect.title }}</span>
+        <ul role="list">
+          {% for link in footer.connect.links %}
+          <li><a href="{{ link.url | relative_url }}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <span class="site-footer__col-title">{{ footer.legal.title }}</span>
+        <ul role="list">
+          {% for link in footer.legal.links %}
+          <li><a href="{{ link.url | relative_url }}">{{ link.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <span class="site-footer__col-title">{{ footer.follow.title }}</span>
+        <ul role="list">
+          {% for link in footer.follow.links %}
+          <li>
+            {% if link.external %}
+            <a href="{{ link.url }}" rel="noopener noreferrer" target="_blank">{{ link.label }}</a>
+            {% else %}
+            <a href="{{ link.url | relative_url }}">{{ link.label }}</a>
+            {% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="site-footer__bottom">
+    <div class="container">
+      <p class="site-footer__copy">
+        &copy; {{ 'now' | date: "%Y" }} {{ site.title }}.
+        Built with <a href="https://jekyllrb.com" rel="noopener noreferrer">Jekyll</a>.
+      </p>
+      {% if site.social %}
+      <ul class="site-footer__social" role="list" aria-label="Social links">
+        {% if site.social.twitter %}
+        <li>
+          <a href="https://twitter.com/{{ site.social.twitter }}" rel="noopener noreferrer" aria-label="Twitter">
+            <span class="material-symbols-outlined">alternate_email</span>
+          </a>
+        </li>
+        {% endif %}
+        {% if site.social.github %}
+        <li>
+          <a href="https://github.com/{{ site.social.github }}" rel="noopener noreferrer" aria-label="GitHub">
+            <span class="material-symbols-outlined">code</span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,104 @@
+---
+layout: default
+---
+
+<article class="course-page" itemscope itemtype="https://schema.org/Course" data-pagefind-body>
+
+  <header class="course-header">
+    <div class="container container--narrow">
+      {% include breadcrumbs.html l1_label="Courses" l1_url="/courses/" current=page.title %}
+
+      <div class="course-header__badges">
+        <span class="chip chip--status chip--{{ page.status | default: 'available' }}">
+          {% case page.status %}
+            {% when 'coming-soon' %}Coming Soon
+            {% when 'archived'    %}Archived
+            {% else               %}Available
+          {% endcase %}
+        </span>
+        {% if page.level %}
+        <span class="chip chip--level">{{ page.level }}</span>
+        {% endif %}
+      </div>
+
+      <h1 class="course-header__title" itemprop="name">{{ page.title }}</h1>
+
+      {% if page.description %}
+      <p class="course-header__desc" itemprop="description">{{ page.description }}</p>
+      {% endif %}
+
+      {% if page.image %}
+      <img class="course-header__image"
+           src="{{ page.image | relative_url }}"
+           alt="{{ page.image_alt | default: page.title }}"
+           width="1200" height="630"
+           loading="eager"
+           itemprop="image">
+      {% else %}
+      {% include cover.html seed=page.url title=page.title class="cover--header" %}
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="course-page__layout container">
+
+    <div class="course-page__content container--narrow">
+      <div class="prose" itemprop="description">
+        {{ content }}
+      </div>
+
+      {% include curriculum.html %}
+      {% include testimonials.html %}
+      {% include faq.html %}
+    </div>
+
+    <aside class="course-page__sidebar">
+      <div class="course-purchase-card card card--elevated">
+        <div class="card__content">
+          {% if page.price %}
+          <p class="course-purchase-card__price">${{ page.price }}</p>
+          {% endif %}
+
+          {% if page.status == 'available' or page.status == nil %}
+          <a class="btn btn--filled btn--lg course-purchase-card__cta"
+             href="{{ page.purchase_url | default: '#' }}"
+             {% unless page.purchase_url %}aria-disabled="true"{% endunless %}
+             rel="noopener noreferrer">
+            Enroll Now
+          </a>
+          {% elsif page.status == 'coming-soon' %}
+          <p class="course-purchase-card__status">Coming soon — join the waitlist:</p>
+          {% include newsletter-form.html %}
+          {% else %}
+          <p class="course-purchase-card__status">This course is no longer available.</p>
+          {% endif %}
+
+          {% if page.features %}
+          <ul class="course-purchase-card__features" role="list">
+            {% for feature in page.features %}
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">check_circle</span>
+              {{ feature }}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+</article>
+
+<!-- JSON-LD Course -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": {{ page.title | jsonify }},
+  "url": "{{ page.url | absolute_url }}"
+  {% if page.description %},"description": {{ page.description | jsonify }}{% endif %}
+  {% if page.price %},"offers": {"@type": "Offer", "price": "{{ page.price }}", "priceCurrency": "USD"}{% endif %}
+}
+</script>

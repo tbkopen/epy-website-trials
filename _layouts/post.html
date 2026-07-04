@@ -1,0 +1,87 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="https://schema.org/BlogPosting" data-pagefind-body>
+
+  <header class="post-header">
+    <div class="container container--narrow">
+      {% include breadcrumbs.html l1_label="Blog" l1_url="/blog/" current=page.title %}
+
+      {% if page.categories and page.categories.size > 0 %}
+      {% assign cat_slug = page.categories.first | slugify %}
+      <a class="chip chip--filter post-header__category" href="{{ '/categories/' | append: cat_slug | append: '/' | relative_url }}">{{ page.categories.first }}</a>
+      {% endif %}
+
+      <h1 class="post-header__title" itemprop="headline">{{ page.title }}</h1>
+
+      {% include post-meta.html %}
+
+      {% if page.image %}
+      <img class="post-header__image"
+           src="{{ page.image | relative_url }}"
+           alt="{{ page.image_alt | default: page.title }}"
+           width="1200" height="630"
+           loading="eager"
+           itemprop="image">
+      {% else %}
+      {% include cover.html seed=page.url title=page.title class="cover--header" %}
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="post__layout container">
+
+    {% if page.toc %}
+    <div class="post__sidebar post__sidebar--left">
+      {% include toc.html %}
+    </div>
+    {% endif %}
+
+    <div class="post__content{% unless page.toc %} post__content--full{% endunless %} container--narrow">
+
+      {% include series-nav.html %}
+
+      <div class="prose" itemprop="articleBody">
+        {{ content }}
+      </div>
+
+      {% include share-buttons.html %}
+      {% include author-bio.html %}
+    </div>
+
+  </div>
+
+  <div class="container container--narrow">
+    {% include comments.html %}
+  </div>
+
+  <div class="container">
+    {% include related-posts.html %}
+  </div>
+
+</article>
+
+<script defer src="{{ '/assets/js/features/progress.js' | relative_url }}"></script>
+
+<!-- JSON-LD BlogPosting -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": {{ site.data.authors['site-author'].name | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.title | jsonify }}
+  },
+  "url": "{{ page.url | absolute_url }}"
+  {% if page.image %},"image": "{{ page.image | absolute_url }}"{% endif %}
+  {% if page.description %},"description": {{ page.description | jsonify }}{% endif %}
+}
+</script>

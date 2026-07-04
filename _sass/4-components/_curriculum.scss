@@ -1,0 +1,56 @@
+.curriculum {
+  &__title {
+    font-size: var(--type-headline-small);
+    margin-bottom: var(--space-5);
+  }
+
+  &__module {
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--shape-medium);
+    overflow: hidden;
+    margin-bottom: var(--space-3);
+    background: var(--color-surface-container-low);
+  }
+
+  &__module-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--color-surface-container);
+  }
+
+  &__module-num {
+    font-family: var(--font-mono);
+    font-size: var(--type-label-medium);
+    font-weight: 500;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  &__module-title {
+    font-family: var(--font-brand);
+    font-size: var(--type-title-medium);
+    font-weight: 600;
+    color: var(--color-on-surface);
+  }
+
+  &__lessons {
+    list-style: none;
+    padding: var(--space-2) var(--space-5) var(--space-4);
+  }
+
+  &__lesson {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    font-size: var(--type-body-medium);
+    color: var(--color-on-surface-variant);
+
+    .material-symbols-outlined {
+      font-size: 18px;
+      color: var(--color-outline);
+    }
+  }
+}

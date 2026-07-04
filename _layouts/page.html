@@ -1,0 +1,29 @@
+---
+layout: default
+---
+
+<article class="page" data-pagefind-body>
+
+  <header class="page-header">
+    <div class="container container--narrow">
+      {% include breadcrumbs.html current=page.title %}
+      <h1 class="page-header__title">{{ page.title }}</h1>
+      {% if page.description %}
+      <p class="page-header__desc">{{ page.description }}</p>
+      {% endif %}
+    </div>
+  </header>
+
+  {% if page.wide %}
+  <div class="container page-content--wide">
+    {{ content }}
+  </div>
+  {% else %}
+  <div class="container container--narrow">
+    <div class="prose">
+      {{ content }}
+    </div>
+  </div>
+  {% endif %}
+
+</article>

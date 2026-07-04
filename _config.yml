@@ -1,0 +1,110 @@
+title: Elastropy
+tagline: "Mathematical depth, practical insight."
+description: "In-depth technical blog posts and courses where rigour meets clarity."
+url: "http://localhost:4000"
+baseurl: ""
+
+# Author (fill in your details)
+author:
+  name: "[Your Name]"
+
+# Social (fill in your handles)
+social:
+  twitter:  "[your-handle]"
+  github:   "[your-handle]"
+  linkedin: "[your-handle]"
+
+# Remark42 comments (local Docker — see docker-compose.dev.yml)
+remark42_host:    "http://localhost:8080"
+remark42_site_id: "elastropy"
+
+# Analytics — off by default; enabled via _config.prod.yml
+analytics: false
+plausible_domain: "elastropy.com"
+
+# Collections
+collections:
+  courses:
+    output: true
+    permalink: /courses/:name/
+  pages:
+    output: true
+    permalink: /:name/
+
+# Post permalink
+permalink: /blog/:title/
+
+# Excerpts
+excerpt_separator: "<!--more-->"
+
+# jekyll-paginate-v2
+pagination:
+  enabled:      true
+  per_page:     6
+  permalink:    "/page/:num/"
+  title:        ":title · Page :num"
+  sort_field:   "date"
+  sort_reverse: true
+  trail:
+    before: 2
+    after:  2
+
+autopages:
+  enabled: true
+  categories:
+    enabled: true
+    layouts: ['archive.html']
+    title: 'Posts in :cat'
+    permalink: '/categories/:cat/'
+  tags:
+    enabled: true
+    layouts: ['archive.html']
+    title: 'Posts tagged :tag'
+    permalink: '/tags/:tag/'
+  collections:
+    enabled: false
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-paginate-v2
+  - jekyll-redirect-from
+  - jekyll-last-modified-at
+
+# Markdown / Syntax highlighting
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    block:
+      line_numbers: false
+
+# Sass
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Defaults
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post, comments: true, math: false, toc: false }
+  - scope: { path: "", type: courses }
+    values: { layout: course }
+  - scope: { path: "", type: pages }
+    values: { layout: page }
+
+# Exclude from build
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle/
+  - .claude/
+  - specs/
+  - "*.sh"
+  - "docker-compose*.yml"
+  - node_modules/
+  - README.md

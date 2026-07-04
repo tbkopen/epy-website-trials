@@ -1,0 +1,16 @@
+{% assign author = site.data.authors['site-author'] %}
+<section class="about-strip section" aria-labelledby="about-strip-heading">
+  <div class="container about-strip__inner">
+    {% if author.avatar %}
+    <img class="about-strip__avatar" src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" width="120" height="120" loading="lazy" onerror="this.style.display='none'">
+    {% endif %}
+    <div class="about-strip__content">
+      <p class="about-strip__eyebrow">About</p>
+      <h2 class="about-strip__title" id="about-strip-heading">{{ author.name }}</h2>
+      <p class="about-strip__bio">{{ author.bio }}</p>
+      <a class="btn btn--text about-strip__link" href="{{ '/about/' | relative_url }}">
+        More about me <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</section>

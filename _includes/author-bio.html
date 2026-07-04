@@ -1,0 +1,25 @@
+{% assign author_key = page.author | default: 'site-author' %}
+{% assign author = site.data.authors[author_key] %}
+{% if author %}
+<aside class="author-bio" aria-label="About the author">
+  {% if author.avatar %}
+  <img class="author-bio__avatar" src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" width="64" height="64" loading="lazy">
+  {% endif %}
+  <div class="author-bio__content">
+    <span class="author-bio__name">{{ author.name }}</span>
+    {% if author.bio %}
+    <p class="author-bio__text">{{ author.bio }}</p>
+    {% endif %}
+    {% if author.links %}
+    <ul class="author-bio__links" role="list">
+      {% if author.links.twitter %}
+      <li><a href="{{ author.links.twitter }}" rel="noopener noreferrer" aria-label="Twitter">Twitter</a></li>
+      {% endif %}
+      {% if author.links.github %}
+      <li><a href="{{ author.links.github }}" rel="noopener noreferrer" aria-label="GitHub">GitHub</a></li>
+      {% endif %}
+    </ul>
+    {% endif %}
+  </div>
+</aside>
+{% endif %}

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec jekyll *)",
+      "Bash(bundle install)",
+      "Bash(bundle update)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add *)",
+      "Bash(ls *)",
+      "Bash(find . *)"
+    ]
+  }
+}

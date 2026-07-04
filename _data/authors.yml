@@ -1,0 +1,8 @@
+site-author:
+  name: "[Your Name]"
+  bio: "I write about mathematics, computing, and the ideas that connect them. Occasionally I build things."
+  avatar: /assets/images/ui/avatar.svg
+  links:
+    twitter:  "https://twitter.com/[your-handle]"
+    github:   "https://github.com/[your-handle]"
+    linkedin: "https://www.linkedin.com/in/[your-handle]"

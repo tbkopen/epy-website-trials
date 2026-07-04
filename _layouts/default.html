@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  {% include head.html %}
+</head>
+<body>
+  {% include header.html %}
+
+  <main id="main-content" tabindex="-1">
+    {{ content }}
+  </main>
+
+  {% include footer.html %}
+
+  <script defer src="{{ '/assets/js/features/ripple.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/features/copy-code.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/features/scroll-top.js' | relative_url }}"></script>
+</body>
+</html>

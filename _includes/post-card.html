@@ -1,0 +1,25 @@
+{% assign p = include.post %}
+<article class="post-card card card--elevated" data-pagefind-ignore>
+  <a class="post-card__image-link" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+    {% if p.image %}
+    <img class="post-card__image" src="{{ p.image | relative_url }}" alt="{{ p.image_alt | default: p.title }}" loading="lazy" decoding="async" width="800" height="450">
+    {% else %}
+    <span class="post-card__image">{% include cover.html seed=p.url title=p.title %}</span>
+    {% endif %}
+  </a>
+  <div class="post-card__body card__content">
+    <div class="post-card__meta">
+      <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%b %-d, %Y" }}</time>
+      {% if p.categories and p.categories.size > 0 %}
+      <span aria-hidden="true">·</span>
+      <span>{{ p.categories | first }}</span>
+      {% endif %}
+    </div>
+    <h2 class="post-card__title">
+      <a class="post-card__title-link stretched-link" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+    </h2>
+    {% if p.excerpt %}
+    <p class="post-card__excerpt">{{ p.excerpt | strip_html | truncate: 140 }}</p>
+    {% endif %}
+  </div>
+</article>

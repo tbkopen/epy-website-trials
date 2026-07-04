@@ -1,0 +1,24 @@
+{% assign maxRelated = 3 %}
+{% assign related = "" | split: "" %}
+
+{% for post in site.posts %}
+  {% if post.url == page.url %}{% continue %}{% endif %}
+  {% assign shared = post.categories | concat: post.tags | uniq %}
+  {% assign pageTerms = page.categories | concat: page.tags | uniq %}
+  {% assign intersection = shared | where_exp: "t", "pageTerms contains t" %}
+  {% if intersection.size > 0 %}
+    {% assign related = related | push: post %}
+  {% endif %}
+  {% if related.size >= maxRelated %}{% break %}{% endif %}
+{% endfor %}
+
+{% if related.size > 0 %}
+<section class="related-posts" aria-label="Related posts">
+  <h2 class="related-posts__title">Related Posts</h2>
+  <div class="post-grid">
+    {% for post in related limit: maxRelated %}
+      {% include post-card.html post=post %}
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

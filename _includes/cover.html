@@ -1,0 +1,45 @@
+{%- comment -%}
+  Generative, deterministic SVG cover used when a post/course has no `image:`.
+  Params:
+    seed   — string to derive the look from (use page.url or title)
+    title  — used for the glyph fallback
+    class  — extra class (e.g. "cover--header")
+  Deterministic: same seed → same cover. Theme-aware via palette CSS vars.
+{%- endcomment -%}
+{%- assign seed = include.seed | default: include.title -%}
+{%- assign n = seed | size -%}
+{%- assign variant = n | modulo: 4 -%}
+{%- assign gi = n | modulo: 8 -%}
+{%- case gi -%}
+  {%- when 0 -%}{%- assign glyph = '∑' -%}
+  {%- when 1 -%}{%- assign glyph = '∫' -%}
+  {%- when 2 -%}{%- assign glyph = '∂' -%}
+  {%- when 3 -%}{%- assign glyph = '√' -%}
+  {%- when 4 -%}{%- assign glyph = 'π' -%}
+  {%- when 5 -%}{%- assign glyph = '∞' -%}
+  {%- when 6 -%}{%- assign glyph = 'λ' -%}
+  {%- when 7 -%}{%- assign glyph = '∇' -%}
+{%- endcase -%}
+{%- case variant -%}
+  {%- when 0 -%}{%- assign c1 = 'var(--color-primary-container)' -%}{%- assign c2 = 'var(--color-tertiary-container)' -%}{%- assign ink = 'var(--color-on-primary-container)' -%}
+  {%- when 1 -%}{%- assign c1 = 'var(--color-secondary-container)' -%}{%- assign c2 = 'var(--color-primary-container)' -%}{%- assign ink = 'var(--color-on-secondary-container)' -%}
+  {%- when 2 -%}{%- assign c1 = 'var(--color-tertiary-container)' -%}{%- assign c2 = 'var(--color-secondary-container)' -%}{%- assign ink = 'var(--color-on-tertiary-container)' -%}
+  {%- when 3 -%}{%- assign c1 = 'var(--color-primary-container)' -%}{%- assign c2 = 'var(--color-secondary-container)' -%}{%- assign ink = 'var(--color-on-primary-container)' -%}
+{%- endcase -%}
+{%- assign angle = n | times: 37 | modulo: 360 -%}
+<svg class="cover {{ include.class }}" viewBox="0 0 1200 450" role="img"
+     aria-label="Decorative cover for {{ include.title | escape }}" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="cov-{{ n }}-{{ gi }}" gradientTransform="rotate({{ angle }} 0.5 0.5)">
+      <stop offset="0%"  style="stop-color: {{ c1 }}"/>
+      <stop offset="100%" style="stop-color: {{ c2 }}"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="450" fill="url(#cov-{{ n }}-{{ gi }})"/>
+  <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
+        class="cover__glyph" font-size="240" fill="{{ ink }}" opacity="0.28">{{ glyph }}</text>
+  <g stroke="{{ ink }}" stroke-width="1" opacity="0.10" fill="none">
+    <circle cx="200" cy="120" r="90"/>
+    <circle cx="1000" cy="340" r="130"/>
+  </g>
+</svg>

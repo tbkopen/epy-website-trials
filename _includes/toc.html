@@ -1,0 +1,10 @@
+{% if page.toc %}
+<details class="toc" id="toc" open>
+  <summary class="toc__summary">
+    <span class="toc__title">On this page</span>
+    <span class="material-symbols-outlined toc__chevron" aria-hidden="true">expand_more</span>
+  </summary>
+  <nav class="toc__list" id="toc-list" aria-label="Table of contents"></nav>
+</details>
+<script defer src="{{ '/assets/js/features/toc.js' | relative_url }}"></script>
+{% endif %}

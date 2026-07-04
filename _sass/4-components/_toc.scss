@@ -1,0 +1,80 @@
+.toc {
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--shape-medium);
+  padding: var(--space-4);
+
+  &__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+
+    &::-webkit-details-marker { display: none; }
+  }
+
+  &__title {
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-on-surface-variant);
+  }
+
+  &__chevron {
+    font-size: 20px;
+    color: var(--color-on-surface-variant);
+    transition: transform var(--motion-duration-short3) var(--motion-easing-standard);
+  }
+
+  &[open] &__chevron { transform: rotate(180deg); }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+
+    a {
+      display: block;
+      font-size: var(--type-body-small);
+      color: var(--color-on-surface-variant);
+      text-decoration: none;
+      padding: var(--space-1) var(--space-3);
+      border-radius: var(--shape-extra-small);
+      border-left: 2px solid transparent;
+      transition:
+        color var(--motion-duration-short2) var(--motion-easing-standard),
+        border-color var(--motion-duration-short2) var(--motion-easing-standard),
+        background var(--motion-duration-short2) var(--motion-easing-standard);
+
+      &:hover {
+        color: var(--color-on-surface);
+        background: var(--color-surface-container-high);
+      }
+
+      &[aria-current="true"] {
+        color: var(--color-primary);
+        border-left-color: var(--color-primary);
+        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+        font-weight: 500;
+      }
+
+      &.toc-h3 { padding-left: var(--space-5); }
+      &.toc-h4 { padding-left: var(--space-8); font-size: var(--type-label-medium); }
+    }
+  }
+
+  // On desktop the TOC lives in a sticky sidebar — keep it open, hide the chevron,
+  // and make the summary behave like a static heading.
+  @media (min-width: 1025px) {
+    border: none;
+    background: transparent;
+    padding: 0;
+
+    .toc__summary { cursor: default; pointer-events: none; }
+    .toc__chevron { display: none; }
+  }
+}

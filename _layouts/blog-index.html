@@ -1,0 +1,36 @@
+---
+layout: default
+---
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-header__title">Blog</h1>
+    {% if page.content and page.content != '' %}
+    <div class="page-header__desc">{{ page.content }}</div>
+    {% else %}
+    <p class="page-header__desc">{{ site.description }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container layout-blog-index">
+  <div class="layout-blog-index__main">
+
+    {% if paginator.posts.size > 0 %}
+    <div class="post-grid" data-pagefind-body>
+      {% for post in paginator.posts %}
+        {% include post-card.html post=post %}
+      {% endfor %}
+    </div>
+    {% include pagination.html %}
+    {% else %}
+    <p class="empty-state">No posts yet — check back soon!</p>
+    {% endif %}
+
+  </div>
+
+  <aside class="layout-blog-index__sidebar">
+    {% include newsletter-form.html %}
+    {% include course-cta.html %}
+  </aside>
+</div>

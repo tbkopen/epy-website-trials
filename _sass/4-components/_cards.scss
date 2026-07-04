@@ -1,0 +1,240 @@
+.card {
+  border-radius: var(--shape-medium);
+  overflow: hidden;
+  position: relative;
+  transition:
+    box-shadow var(--motion-duration-medium1) var(--motion-easing-standard),
+    transform var(--motion-duration-medium1) var(--motion-easing-standard),
+    border-color var(--motion-duration-short2) var(--motion-easing-standard);
+
+  &__content {
+    padding: var(--space-6);
+  }
+
+  // Single subtle state layer driven by focus-within / hover
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-on-surface);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+    z-index: 0;
+  }
+
+  &:hover::before        { opacity: var(--state-hover-opacity); }
+  &:focus-within::before { opacity: var(--state-focus-opacity); }
+
+  > * { position: relative; z-index: 1; }
+
+  // ── Variants ──────────────────────────────────────────────────────────────
+  // Elevated cards use MD3 primary surface-tint at the level-1 opacity.
+  &--elevated {
+    background: color-mix(in srgb, var(--color-surface-tint) 5%, var(--color-surface));
+    box-shadow: var(--elevation-1);
+
+    &:hover {
+      box-shadow: var(--elevation-2);
+      transform: translateY(-2px);
+    }
+  }
+
+  &--filled {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+
+    &:hover { transform: translateY(-2px); }
+  }
+
+  &--outlined {
+    background: var(--color-surface);
+    border: 1px solid var(--color-outline-variant);
+
+    &:hover {
+      border-color: var(--color-outline);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Stretched link utility (full-card clickable)
+.stretched-link {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+  &:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// ── Post card ────────────────────────────────────────────────────────────────
+.post-card {
+  display: flex;
+  flex-direction: column;
+
+  &__image-link { display: block; }
+  &__image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  &__meta {
+    font-size: var(--type-body-small);
+    color: var(--color-on-surface-variant);
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  &__title {
+    font-size: var(--type-title-large);
+    line-height: var(--lh-snug);
+    margin-bottom: var(--space-2);
+    color: var(--color-on-surface);
+  }
+
+  &__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__excerpt {
+    font-size: var(--type-body-medium);
+    color: var(--color-on-surface-variant);
+    line-height: var(--lh-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// ── Course card ──────────────────────────────────────────────────────────────
+.course-card {
+  display: flex;
+  flex-direction: column;
+
+  &__image { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+  &__badges {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+  }
+
+  &__title {
+    font-size: var(--type-title-large);
+    color: var(--color-on-surface);
+    margin-bottom: var(--space-2);
+  }
+
+  &__title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &__description {
+    font-size: var(--type-body-medium);
+    color: var(--color-on-surface-variant);
+    line-height: var(--lh-relaxed);
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__footer {
+    margin-top: var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__price {
+    font-size: var(--type-title-medium);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+}
+
+// ── Course purchase card (sidebar) ────────────────────────────────────────────
+.course-purchase-card {
+  .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  &__price {
+    font-size: var(--type-display-small);
+    font-weight: 700;
+    color: var(--color-on-surface);
+  }
+
+  &__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__status {
+    color: var(--color-on-surface-variant);
+    font-size: var(--type-body-medium);
+  }
+
+  &__features {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-outline-variant);
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: var(--type-body-medium);
+      color: var(--color-on-surface-variant);
+    }
+
+    .material-symbols-outlined {
+      font-size: 18px;
+      color: var(--color-primary);
+    }
+  }
+}
+
+// ── Course CTA (sidebar widget) ───────────────────────────────────────────────
+.course-cta {
+  .card__content { display: flex; flex-direction: column; gap: var(--space-3); }
+
+  &__eyebrow {
+    font-size: var(--type-label-medium);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-on-secondary-container);
+    opacity: 0.7;
+  }
+
+  &__title {
+    font-size: var(--type-title-large);
+    color: var(--color-on-secondary-container);
+  }
+
+  &__desc {
+    font-size: var(--type-body-medium);
+    color: var(--color-on-secondary-container);
+    opacity: 0.8;
+  }
+}

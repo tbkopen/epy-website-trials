@@ -1,0 +1,23 @@
+{% if page.curriculum %}
+<section class="curriculum" aria-labelledby="curriculum-heading">
+  <h2 class="curriculum__title" id="curriculum-heading">Curriculum</h2>
+  {% for module in page.curriculum %}
+  <div class="curriculum__module">
+    <div class="curriculum__module-header">
+      <span class="curriculum__module-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+      <span class="curriculum__module-title">{{ module.title }}</span>
+    </div>
+    {% if module.lessons %}
+    <ul class="curriculum__lessons" role="list">
+      {% for lesson in module.lessons %}
+      <li class="curriculum__lesson">
+        <span class="material-symbols-outlined" aria-hidden="true">play_circle</span>
+        {{ lesson }}
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endif %}

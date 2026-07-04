@@ -1,0 +1,23 @@
+<div class="share-buttons" aria-label="Share this post">
+  <span class="share-buttons__label">Share</span>
+  <ul class="share-buttons__list" role="list">
+    <li>
+      <a class="btn btn--outlined btn--sm share-btn"
+         href="https://twitter.com/intent/tweet?url={{ page.url | absolute_url | url_encode }}&text={{ page.title | url_encode }}"
+         rel="noopener noreferrer"
+         target="_blank"
+         aria-label="Share on Twitter">
+        Twitter
+      </a>
+    </li>
+    <li>
+      <a class="btn btn--outlined btn--sm share-btn"
+         href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | url_encode }}"
+         rel="noopener noreferrer"
+         target="_blank"
+         aria-label="Share on LinkedIn">
+        LinkedIn
+      </a>
+    </li>
+  </ul>
+</div>

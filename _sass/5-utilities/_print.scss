@@ -1,0 +1,61 @@
+// Print stylesheet — clean, ink-friendly article output.
+@media print {
+  :root {
+    --color-background: #fff;
+    --color-surface: #fff;
+    --color-on-surface: #000;
+    --color-on-background: #000;
+    --color-on-surface-variant: #333;
+  }
+
+  body { background: #fff; color: #000; }
+
+  // Hide chrome and interactive-only regions
+  .site-header,
+  .site-footer,
+  .comments,
+  .share-buttons,
+  .newsletter-form,
+  .newsletter-panel,
+  .related-posts,
+  .toc,
+  .search-modal,
+  .post__sidebar--left,
+  .course-page__sidebar,
+  .copy-code-btn,
+  .reading-progress,
+  .scroll-top {
+    display: none !important;
+  }
+
+  main { padding: 0; }
+
+  .post__layout,
+  .course-page__layout,
+  .layout-blog-index {
+    display: block;
+    max-width: 100%;
+  }
+
+  .prose {
+    font-size: 11pt;
+    line-height: 1.5;
+    max-width: 100%;
+  }
+
+  // Expand link URLs in article body
+  .prose a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .prose pre,
+  .prose blockquote,
+  .prose img {
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 { page-break-after: avoid; }
+}

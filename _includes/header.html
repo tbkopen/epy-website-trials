@@ -1,0 +1,46 @@
+<header class="site-header" role="banner">
+  <div class="site-header__inner container">
+
+    <a class="site-header__logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+      <span class="site-header__logo-text">{{ site.title }}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary navigation" id="primary-nav">
+      <ul class="site-nav__list" role="list">
+        {% for item in site.data.navigation.primary %}
+        <li class="site-nav__item">
+          <a class="site-nav__link{% if page.url == item.url %} site-nav__link--active{% endif %}"
+             href="{{ item.url | relative_url }}"
+             {% if page.url == item.url %}aria-current="page"{% endif %}>
+            {{ item.label }}
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <a class="btn btn--filled btn--sm site-nav__cta" href="{{ '/newsletter/' | relative_url }}">
+        Newsletter
+      </a>
+    </nav>
+
+    <div class="site-header__actions">
+      <button class="icon-btn" id="search-trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-modal">
+        <span class="material-symbols-outlined">search</span>
+      </button>
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle colour scheme">
+        <span class="material-symbols-outlined theme-toggle__icon--light">light_mode</span>
+        <span class="material-symbols-outlined theme-toggle__icon--dark">dark_mode</span>
+      </button>
+      <button class="icon-btn site-header__menu-btn" id="nav-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-nav">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+{% include search.html %}
+
+<script defer src="{{ '/assets/js/features/nav.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/features/theme.js' | relative_url }}"></script>
+<script defer src="{{ '/assets/js/features/search.js' | relative_url }}"></script>

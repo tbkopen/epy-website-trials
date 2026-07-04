@@ -1,0 +1,21 @@
+services:
+  remark42:
+    image: umputun/remark42:latest
+    container_name: elastropy-remark42-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - REMARK_URL=http://localhost:8080
+      - SITE=elastropy
+      - SECRET=dev-secret-change-in-production
+      - AUTH_ANON=true
+      - AUTH_EMAIL_ENABLE=false
+      - LOW_SCORE=-5
+      - CRITICAL_SCORE=-10
+      - POSITIVE_SCORE=10
+      - MAX_BACK_LIMIT=0
+      - IMAGE_PROXY_CACHE_SIZE=0
+      - EMOJI=true
+    volumes:
+      - ./var/remark42:/srv/var

@@ -1,0 +1,15 @@
+{% if page.series %}
+{%- assign parts = site.posts | where: "series", page.series | sort: "date" -%}
+{% if parts.size > 1 %}
+<nav class="series-nav" aria-label="Series navigation">
+  <p class="series-nav__label">{{ page.series }} · Part {% for p in parts %}{% if p.url == page.url %}{{ forloop.index }} of {{ parts.size }}{% endif %}{% endfor %}</p>
+  <ol class="series-nav__list">
+    {% for p in parts %}
+    <li class="series-nav__item{% if p.url == page.url %} series-nav__item--current{% endif %}">
+      {% if p.url == page.url %}{{ p.title }}{% else %}<a href="{{ p.url | relative_url }}">{{ p.title }}</a>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+</nav>
+{% endif %}
+{% endif %}

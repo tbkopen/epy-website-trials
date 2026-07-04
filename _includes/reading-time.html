@@ -1,0 +1,7 @@
+{%- comment -%}
+  Auto reading time. Pass content: {% include reading-time.html content=page.content %}
+  Assumes ~200 words/minute; minimum 1 min.
+{%- endcomment -%}
+{%- assign words = include.content | strip_html | number_of_words -%}
+{%- assign rt = words | divided_by: 200 | at_least: 1 -%}
+{{ rt }}

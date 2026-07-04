@@ -1,0 +1,6 @@
+# Local development overrides — never deployed
+url:              "http://localhost:4000"
+remark42_host:    "http://localhost:8080"
+remark42_site_id: "elastropy"
+analytics:        false
+show_drafts:      true

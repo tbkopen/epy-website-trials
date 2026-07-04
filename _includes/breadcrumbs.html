@@ -1,0 +1,46 @@
+{%- comment -%}
+  Reusable breadcrumb. Pass `crumbs` as a JSON-ish array via include params is
+  awkward in Liquid, so callers pass up to three levels explicitly:
+    {% include breadcrumbs.html l1_label="Blog" l1_url="/blog/" current=page.title %}
+  Home is always prepended. `current` is the unlinked final crumb.
+{%- endcomment -%}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list" itemscope itemtype="https://schema.org/BreadcrumbList">
+
+    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a class="breadcrumb__link" href="{{ '/' | relative_url }}" itemprop="item">
+        <span itemprop="name">Home</span>
+      </a>
+      <meta itemprop="position" content="1">
+    </li>
+
+    {% if include.l1_label %}
+    <li class="breadcrumb__sep" aria-hidden="true"><span class="material-symbols-outlined">chevron_right</span></li>
+    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a class="breadcrumb__link" href="{{ include.l1_url | relative_url }}" itemprop="item">
+        <span itemprop="name">{{ include.l1_label }}</span>
+      </a>
+      <meta itemprop="position" content="2">
+    </li>
+    {% endif %}
+
+    {% if include.l2_label %}
+    <li class="breadcrumb__sep" aria-hidden="true"><span class="material-symbols-outlined">chevron_right</span></li>
+    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <a class="breadcrumb__link" href="{{ include.l2_url | relative_url }}" itemprop="item">
+        <span itemprop="name">{{ include.l2_label }}</span>
+      </a>
+      <meta itemprop="position" content="3">
+    </li>
+    {% endif %}
+
+    {% if include.current %}
+    <li class="breadcrumb__sep" aria-hidden="true"><span class="material-symbols-outlined">chevron_right</span></li>
+    <li class="breadcrumb__item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+      <span class="breadcrumb__current" itemprop="name" aria-current="page">{{ include.current }}</span>
+      <meta itemprop="position" content="{% if include.l2_label %}4{% elsif include.l1_label %}3{% else %}2{% endif %}">
+    </li>
+    {% endif %}
+
+  </ol>
+</nav>

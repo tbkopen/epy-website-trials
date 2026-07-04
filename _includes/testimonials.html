@@ -1,0 +1,16 @@
+{% if page.testimonials %}
+<section class="testimonials" aria-labelledby="testimonials-heading">
+  <h2 class="testimonials__title" id="testimonials-heading">What learners say</h2>
+  <div class="testimonials__grid">
+    {% for t in page.testimonials %}
+    <figure class="testimonials__item">
+      <blockquote class="testimonials__quote">{{ t.quote }}</blockquote>
+      <figcaption class="testimonials__author">
+        <span class="testimonials__author-name">{{ t.name }}</span>
+        {% if t.role %}<span class="testimonials__author-role">· {{ t.role }}</span>{% endif %}
+      </figcaption>
+    </figure>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}

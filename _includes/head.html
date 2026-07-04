@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+{% seo %}
+
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+<!-- Material Symbols -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<!-- Google Fonts: Fraunces (display) + Inter (body) + JetBrains Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+
+{% if page.math %}
+  {% include math.html %}
+{% endif %}
+
+{% if site.analytics and site.plausible_domain %}
+  {% include analytics.html %}
+{% endif %}
+
+<!-- Pagefind search UI styles (lazy — loaded by search.js only on search pages) -->
+<link rel="preload" as="style" href="{{ '/pagefind/pagefind-ui.css' | relative_url }}" onload="this.rel='stylesheet'">
+
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/images/ui/favicon.svg' | relative_url }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">

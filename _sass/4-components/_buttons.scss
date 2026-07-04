@@ -1,0 +1,135 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--shape-full);
+  font-family: var(--font-sans);
+  font-size: var(--type-label-large);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition:
+    box-shadow var(--motion-duration-short2) var(--motion-easing-standard),
+    opacity var(--motion-duration-short2) var(--motion-easing-standard);
+
+  // state layer
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  }
+
+  &:hover::after   { opacity: var(--state-hover-opacity); }
+  &:focus-visible::after { opacity: var(--state-focus-opacity); outline: none; }
+  &:active::after  { opacity: var(--state-pressed-opacity); }
+
+  &[aria-disabled="true"] {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+  }
+
+  // ── Variants ─────────────────────────────────────────────────────────────
+  &--filled {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    box-shadow: var(--elevation-0);
+
+    &::after { background: var(--color-on-primary); }
+    &:hover { box-shadow: var(--elevation-1); }
+    &:active { box-shadow: var(--elevation-0); }
+  }
+
+  &--tonal {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+
+    &::after { background: var(--color-on-secondary-container); }
+    &:hover { box-shadow: var(--elevation-1); }
+  }
+
+  &--outlined {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-outline);
+
+    &::after { background: var(--color-primary); }
+    &:hover { border-color: var(--color-primary); }
+  }
+
+  &--elevated {
+    background: var(--color-surface-container-low);
+    color: var(--color-primary);
+    box-shadow: var(--elevation-1);
+
+    &::after { background: var(--color-primary); }
+    &:hover { box-shadow: var(--elevation-2); }
+  }
+
+  &--text {
+    background: transparent;
+    color: var(--color-primary);
+    padding-inline: var(--space-3);
+
+    &::after { background: var(--color-primary); }
+  }
+
+  // ── Sizes ─────────────────────────────────────────────────────────────────
+  &--sm {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--type-label-medium);
+  }
+
+  &--lg {
+    padding: var(--space-4) var(--space-8);
+    font-size: var(--type-body-large);
+  }
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--shape-full);
+  color: var(--color-on-surface-variant);
+  cursor: pointer;
+  border: none;
+  background: none;
+  position: relative;
+  overflow: hidden;
+  transition: color var(--motion-duration-short2) var(--motion-easing-standard);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-on-surface);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--motion-duration-short2) var(--motion-easing-standard);
+  }
+
+  &:hover { color: var(--color-on-surface); &::after { opacity: var(--state-hover-opacity); } }
+  &:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 2px; }
+  &:active::after { opacity: var(--state-pressed-opacity); }
+
+  .material-symbols-outlined { font-size: 24px; pointer-events: none; }
+}

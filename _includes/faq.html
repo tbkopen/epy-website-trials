@@ -1,0 +1,30 @@
+{% if page.faq %}
+<section class="faq" aria-labelledby="faq-heading">
+  <h2 class="faq__title" id="faq-heading">Frequently asked questions</h2>
+  {% for item in page.faq %}
+  <details class="faq__item">
+    <summary class="faq__question">
+      {{ item.q }}
+      <span class="material-symbols-outlined" aria-hidden="true">add</span>
+    </summary>
+    <div class="faq__answer">{{ item.a | markdownify }}</div>
+  </details>
+  {% endfor %}
+</section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for item in page.faq %}
+    {
+      "@type": "Question",
+      "name": {{ item.q | jsonify }},
+      "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | strip_html | jsonify }} }
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}
