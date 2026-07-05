@@ -27,15 +27,21 @@
   {%- when 3 -%}{%- assign c1 = 'var(--color-tertiary-container)' -%}{%- assign c2 = 'var(--color-primary-container)' -%}{%- assign ink = 'var(--color-on-tertiary-container)' -%}
 {%- endcase -%}
 {%- assign angle = n | times: 37 | modulo: 360 -%}
+{%- comment -%} Gradient id must be unique per element. Deriving it only from the
+   URL length collides whenever two items have equal-length URLs, and duplicate
+   inline-SVG gradient ids render transparent in some browsers. Tie it to the
+   slugified seed (unique per page) plus a per-render counter. {%- endcomment -%}
+{%- capture covctr -%}{%- increment cover_uid -%}{%- endcapture -%}
+{%- assign uid = seed | slugify | append: '-' | append: covctr -%}
 <svg class="cover {{ include.class }}" viewBox="0 0 1200 450" role="img"
      aria-label="Decorative cover for {{ include.title | escape }}" preserveAspectRatio="xMidYMid slice">
   <defs>
-    <linearGradient id="cov-{{ n }}-{{ gi }}" gradientTransform="rotate({{ angle }} 0.5 0.5)">
+    <linearGradient id="cov-{{ uid }}" gradientTransform="rotate({{ angle }} 0.5 0.5)">
       <stop offset="0%"  style="stop-color: {{ c1 }}"/>
       <stop offset="100%" style="stop-color: {{ c2 }}"/>
     </linearGradient>
   </defs>
-  <rect width="1200" height="450" fill="url(#cov-{{ n }}-{{ gi }})"/>
+  <rect width="1200" height="450" fill="url(#cov-{{ uid }})"/>
   <text x="50%" y="50%" text-anchor="middle" dominant-baseline="central"
         class="cover__glyph" font-size="240" fill="{{ ink }}" opacity="0.28">{{ glyph }}</text>
   <g stroke="{{ ink }}" stroke-width="1" opacity="0.10" fill="none">
