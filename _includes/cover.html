@@ -22,9 +22,9 @@
 {%- endcase -%}
 {%- case variant -%}
   {%- when 0 -%}{%- assign c1 = 'var(--color-primary-container)' -%}{%- assign c2 = 'var(--color-tertiary-container)' -%}{%- assign ink = 'var(--color-on-primary-container)' -%}
-  {%- when 1 -%}{%- assign c1 = 'var(--color-secondary-container)' -%}{%- assign c2 = 'var(--color-primary-container)' -%}{%- assign ink = 'var(--color-on-secondary-container)' -%}
+  {%- when 1 -%}{%- assign c1 = 'var(--color-secondary-container)' -%}{%- assign c2 = 'var(--color-tertiary-container)' -%}{%- assign ink = 'var(--color-on-secondary-container)' -%}
   {%- when 2 -%}{%- assign c1 = 'var(--color-tertiary-container)' -%}{%- assign c2 = 'var(--color-secondary-container)' -%}{%- assign ink = 'var(--color-on-tertiary-container)' -%}
-  {%- when 3 -%}{%- assign c1 = 'var(--color-primary-container)' -%}{%- assign c2 = 'var(--color-secondary-container)' -%}{%- assign ink = 'var(--color-on-primary-container)' -%}
+  {%- when 3 -%}{%- assign c1 = 'var(--color-tertiary-container)' -%}{%- assign c2 = 'var(--color-primary-container)' -%}{%- assign ink = 'var(--color-on-tertiary-container)' -%}
 {%- endcase -%}
 {%- assign angle = n | times: 37 | modulo: 360 -%}
 <svg class="cover {{ include.class }}" viewBox="0 0 1200 450" role="img"
