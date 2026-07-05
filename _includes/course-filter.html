@@ -1,0 +1,57 @@
+{%- comment -%}
+  Filterable course listing. Renders every course once inside a single grid;
+  group dividers are shown/hidden and cards toggled client-side by
+  assets/js/features/course-filter.js — no page reload, no duplicated markup.
+{%- endcomment -%}
+{% assign available = site.courses | where: "status", "available" %}
+{% assign coming    = site.courses | where: "status", "coming-soon" %}
+{% assign archived  = site.courses | where: "status", "archived" %}
+{% assign total     = available.size | plus: coming.size | plus: archived.size %}
+
+<div class="course-filter-bar">
+  <div class="course-filter-bar__heading">
+    <h2 class="course-filter-bar__title" data-course-filter-title>All Courses</h2>
+    <span class="course-filter-bar__count" data-course-filter-count>{{ total }} course{% unless total == 1 %}s{% endunless %}</span>
+  </div>
+  <div class="course-filter-bar__control">
+    <label class="course-filter-bar__label" for="course-filter-select">Show</label>
+    <span class="course-filter-bar__select-wrap">
+      <select class="select course-filter-bar__select" id="course-filter-select" data-course-filter-select>
+        <option value="all" selected>All Courses</option>
+        <option value="available">Available Now</option>
+        <option value="coming-soon">Coming Soon</option>
+        <option value="archived">Archived</option>
+      </select>
+      <span class="material-symbols-outlined course-filter-bar__select-icon" aria-hidden="true">expand_more</span>
+    </span>
+  </div>
+</div>
+
+{% if total > 0 %}
+<div class="course-grid" data-course-grid>
+  {% if available.size > 0 %}
+  <div class="course-divider" data-course-divider="available">
+    <span class="course-divider__label">Available Now <span class="course-divider__count">{{ available.size }} course{% unless available.size == 1 %}s{% endunless %}</span></span>
+  </div>
+  {% for course in available %}{% include course-card.html course=course %}{% endfor %}
+  {% endif %}
+
+  {% if coming.size > 0 %}
+  <div class="course-divider" data-course-divider="coming-soon">
+    <span class="course-divider__label">Coming Soon <span class="course-divider__count">{{ coming.size }} course{% unless coming.size == 1 %}s{% endunless %}</span></span>
+  </div>
+  {% for course in coming %}{% include course-card.html course=course %}{% endfor %}
+  {% endif %}
+
+  {% if archived.size > 0 %}
+  <div class="course-divider" data-course-divider="archived">
+    <span class="course-divider__label">Archived <span class="course-divider__count">{{ archived.size }} course{% unless archived.size == 1 %}s{% endunless %}</span></span>
+  </div>
+  {% for course in archived %}{% include course-card.html course=course %}{% endfor %}
+  {% endif %}
+</div>
+{% else %}
+<p class="empty-state">Courses are in development — <a href="/newsletter/">subscribe</a> to be the first to know.</p>
+{% endif %}
+
+<script defer src="{{ '/assets/js/features/course-filter.js' | relative_url }}"></script>

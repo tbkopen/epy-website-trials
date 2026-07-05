@@ -3,7 +3,10 @@ title: "Algorithms in Depth"
 description: "Beyond memorising solutions — learn the design principles that let you derive algorithms and prove they're correct and fast."
 status: available
 level: Advanced
-price: 179
+price: 14900
+course-link: https://exly.co/PvxFUL
+rating: 4.9
+raters: 250
 features:
   - 12 modules, 65+ lessons
   - Correctness proofs and complexity analysis

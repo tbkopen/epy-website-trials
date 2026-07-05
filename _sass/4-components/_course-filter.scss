@@ -1,0 +1,113 @@
+// ── Course filter bar ──────────────────────────────────────────────────────────
+.course-filter-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+
+  &__heading {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  &__title {
+    font-family: var(--font-brand);
+    font-size: var(--type-headline-small);
+    color: var(--color-on-surface);
+  }
+
+  &__count {
+    font-size: var(--type-body-medium);
+    color: var(--color-on-surface-variant);
+  }
+
+  &__control {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  &__label {
+    font-size: var(--type-label-large);
+    font-weight: 500;
+    color: var(--color-on-surface-variant);
+  }
+
+  &__select-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  &__select-icon {
+    position: absolute;
+    right: var(--space-3);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-on-surface-variant);
+    pointer-events: none;
+  }
+}
+
+.select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: var(--space-2) var(--space-10) var(--space-2) var(--space-4);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--shape-full);
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  font-size: var(--type-body-medium);
+  cursor: pointer;
+  transition: border-color var(--motion-duration-short2) var(--motion-easing-standard);
+
+  &:hover { border-color: var(--color-primary); }
+
+  &:focus-visible {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px var(--color-focus-ring);
+  }
+}
+
+// ── Course grid dividers (centered group headings) ────────────────────────────
+.course-divider {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-4) 0 var(--space-2);
+
+  &:first-child { margin-top: 0; }
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-outline-variant);
+  }
+
+  &__label {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    white-space: nowrap;
+    font-family: var(--font-brand);
+    font-size: var(--type-title-large);
+    color: var(--color-on-surface);
+  }
+
+  &__count {
+    font-family: var(--font-sans);
+    font-size: var(--type-body-medium);
+    font-weight: 400;
+    color: var(--color-on-surface-variant);
+  }
+
+  &[hidden] { display: none; }
+}

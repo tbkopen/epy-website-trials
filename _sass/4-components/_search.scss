@@ -43,6 +43,13 @@
   #search-container {
     flex: 1;
 
+    // Pagefind draws its own magnifying-glass icon as a ::before mask-image
+    // on the form; we already render our own icon in .search-modal__header,
+    // so suppress theirs to avoid a doubled icon overlapping the placeholder.
+    .pagefind-ui__form::before {
+      content: none;
+    }
+
     // override Pagefind input styling
     .pagefind-ui__search-input {
       border: none !important;

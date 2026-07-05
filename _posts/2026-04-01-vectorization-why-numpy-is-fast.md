@@ -1,5 +1,5 @@
 ---
-title: "Vectorization: Why NumPy Is Fast"
+title: "Vectorization: Why NumPy Is Fast "
 date: 2026-04-01
 categories: [computing]
 tags: [numpy, performance, python]

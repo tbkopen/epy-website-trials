@@ -189,7 +189,9 @@
 
 // Post layout
 .post {
-  padding-block: var(--space-8);
+  // Bottom-only: a top value here would push .post-header down, opening a
+  // gap between it and the sticky site header above.
+  padding-bottom: var(--space-8);
 
   &-header {
     padding-block: var(--space-10) var(--space-8);
@@ -282,8 +284,16 @@
   @media (max-width: 640px) {
     grid-template-columns: 1fr;
   }
+
+  // Blog index: single-column list of full-width horizontal rows
+  &--list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
 }
 
+.page-content,
 .page-content--wide {
   padding-block: var(--space-10);
 }

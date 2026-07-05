@@ -7,6 +7,7 @@ series: "Foundations of Machine Learning"
 description: "The algorithm that trains every deep network is high-school calculus applied with one clever bit of bookkeeping."
 math: true
 toc: true
+pinned: true
 ---
 
 Backpropagation has a reputation for being hard. It isn't. It's the **chain rule** from calculus, plus one insight about the *order* in which to apply it.

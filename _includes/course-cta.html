@@ -1,14 +1,14 @@
 {% assign courses = site.courses | where: "status", "available" | limit: 1 %}
 {% if courses.size > 0 %}
 {% assign c = courses.first %}
-<aside class="course-cta card card--filled" aria-label="Featured course">
+<aside class="course-cta course-cta--featured card" aria-label="Featured course">
+  <p class="course-cta__ribbon">★ Featured course</p>
   <div class="card__content">
-    <p class="course-cta__eyebrow">Featured Course</p>
     <h3 class="course-cta__title">{{ c.title }}</h3>
     {% if c.description %}
     <p class="course-cta__desc">{{ c.description | truncate: 100 }}</p>
     {% endif %}
-    <a class="btn btn--filled" href="{{ c.url | relative_url }}">Learn more</a>
+    <a class="btn btn--filled course-cta__button" href="{{ c.url | relative_url }}">Learn more →</a>
   </div>
 </aside>
 {% endif %}

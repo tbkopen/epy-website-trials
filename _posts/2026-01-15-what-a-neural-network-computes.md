@@ -7,6 +7,7 @@ series: "Foundations of Machine Learning"
 description: "Strip away the biology metaphors and a neural network is a stack of linear maps with bends in between."
 math: true
 toc: true
+pinned: true
 ---
 
 "Neurons," "activations," "firing" — the biological language obscures what a neural network really is: a **parameterised function** built by alternating linear maps with simple non-linear bends.

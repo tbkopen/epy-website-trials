@@ -116,6 +116,65 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  // Blog index: horizontal row (thumbnail left, content right)
+  &--row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: stretch;
+
+    .post-card__image-link { height: 100%; }
+
+    .post-card__image,
+    .post-card__image .cover {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+
+    .post-card__body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .post-card__excerpt {
+      -webkit-line-clamp: 2;
+    }
+
+    @media (max-width: 560px) {
+      grid-template-columns: 1fr;
+
+      .post-card__image-link { height: auto; }
+
+      .post-card__image,
+      .post-card__image .cover {
+        height: auto;
+        aspect-ratio: 16 / 9;
+      }
+    }
+  }
+
+  &--pinned {
+    box-shadow: var(--elevation-1), 0 0 0 1px color-mix(in srgb, var(--color-primary) 50%, transparent);
+
+    &:hover {
+      box-shadow: var(--elevation-2), 0 0 0 1px color-mix(in srgb, var(--color-primary) 50%, transparent);
+    }
+
+    .post-card__image-link {
+      box-shadow: inset -3px 0 0 var(--color-primary);
+    }
+  }
+
+  &__pinned-badge {
+    display: block;
+    font-size: var(--type-label-small);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+  }
 }
 
 // ── Course card ──────────────────────────────────────────────────────────────
@@ -123,7 +182,17 @@
   display: flex;
   flex-direction: column;
 
+  &[hidden] { display: none; }
+
   &__image { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+  // Flex column so the footer (price + CTA) can pin to the bottom via
+  // margin-top: auto, keeping it aligned across cards of unequal content length.
+  &__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
 
   &__badges {
     display: flex;
@@ -132,10 +201,20 @@
     margin-bottom: var(--space-3);
   }
 
+  // Title and description reserve a fixed number of lines (rather than growing
+  // with content) so the rating row starts at the same offset across every
+  // card in a row, regardless of how long each course's title/description is.
   &__title {
+    font-family: var(--font-brand);
     font-size: var(--type-title-large);
+    line-height: var(--lh-snug);
     color: var(--color-on-surface);
     margin-bottom: var(--space-2);
+    height: calc(1em * var(--lh-snug) * 2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   &__title-link {
@@ -147,15 +226,52 @@
     font-size: var(--type-body-medium);
     color: var(--color-on-surface-variant);
     line-height: var(--lh-relaxed);
-    flex: 1;
+    height: calc(1em * var(--lh-relaxed) * 3);
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+
+  &__stars {
+    position: relative;
+    display: inline-block;
+    line-height: 1;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  &__stars-bg { color: var(--color-outline-variant); }
+
+  &__stars-fg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #f5a623;
+  }
+
+  &__rating-value {
+    font-size: var(--type-body-small);
+    font-weight: 600;
+    color: var(--color-on-surface);
+  }
+
+  &__rating-count {
+    font-size: var(--type-body-small);
+    color: var(--color-on-surface-variant);
+  }
+
   &__footer {
-    margin-top: var(--space-4);
+    margin-top: auto;
+    padding-top: var(--space-4);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -165,6 +281,10 @@
     font-size: var(--type-title-medium);
     font-weight: 700;
     color: var(--color-primary);
+  }
+
+  &__cta {
+    margin-left: auto;
   }
 }
 
@@ -218,23 +338,39 @@
 .course-cta {
   .card__content { display: flex; flex-direction: column; gap: var(--space-3); }
 
-  &__eyebrow {
-    font-size: var(--type-label-medium);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-on-secondary-container);
-    opacity: 0.7;
-  }
-
   &__title {
     font-size: var(--type-title-large);
-    color: var(--color-on-secondary-container);
+    color: var(--color-on-surface);
   }
 
   &__desc {
     font-size: var(--type-body-medium);
-    color: var(--color-on-secondary-container);
-    opacity: 0.8;
+    color: var(--color-on-surface-variant);
+  }
+
+  // Featured-course promo treatment (blog index sidebar)
+  &--featured {
+    background: var(--color-surface);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 20%, transparent);
+    position: sticky;
+    top: var(--space-6);
+  }
+
+  &__ribbon {
+    margin: 0;
+    padding: var(--space-2) var(--space-6);
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    font-size: var(--type-label-medium);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+  }
+
+  &__button {
+    width: 100%;
+    justify-content: center;
   }
 }

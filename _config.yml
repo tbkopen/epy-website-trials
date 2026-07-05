@@ -96,6 +96,13 @@ defaults:
   - scope: { path: "", type: pages }
     values: { layout: page }
 
+# Files Jekyll's destination-cleaner must never delete: the Pagefind index is
+# built into _site/pagefind/ by a separate `npx pagefind` step after `jekyll
+# build` runs (see jekyll-serve.sh), so Jekyll doesn't know it made this and
+# will wipe it on every subsequent --watch rebuild unless told to keep it.
+keep_files:
+  - pagefind
+
 # Exclude from build
 exclude:
   - Gemfile

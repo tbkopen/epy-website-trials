@@ -17,9 +17,12 @@ layout: default
   <div class="layout-blog-index__main">
 
     {% if paginator.posts.size > 0 %}
-    <div class="post-grid" data-pagefind-body>
-      {% for post in paginator.posts %}
-        {% include post-card.html post=post %}
+    {% assign pinned_posts = paginator.posts | where: "pinned", true %}
+    {% assign other_posts = paginator.posts | where_exp: "post", "post.pinned != true" %}
+    {% assign sorted_posts = pinned_posts | concat: other_posts %}
+    <div class="post-grid post-grid--list" data-pagefind-body>
+      {% for post in sorted_posts %}
+        {% include post-card.html post=post variant="row" %}
       {% endfor %}
     </div>
     {% include pagination.html %}
@@ -30,7 +33,6 @@ layout: default
   </div>
 
   <aside class="layout-blog-index__sidebar">
-    {% include newsletter-form.html %}
     {% include course-cta.html %}
   </aside>
 </div>

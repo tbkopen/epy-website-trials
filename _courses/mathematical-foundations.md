@@ -3,7 +3,10 @@ title: "Mathematical Foundations of Machine Learning"
 description: "A rigorous ground-up treatment of the linear algebra, probability, and optimisation that underpins modern ML — with proofs, intuitions, and code."
 status: coming-soon
 level: Intermediate
-price: 149
+price: 12900
+course-link: /courses/mathematical-foundations
+rating: 4.7
+raters: 18
 features:
   - 12 modules, 60+ lessons
   - Exercises with worked solutions

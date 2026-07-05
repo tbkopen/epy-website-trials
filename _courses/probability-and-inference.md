@@ -3,8 +3,11 @@ title: "Probability & Statistical Inference"
 description: "From sample spaces to the bootstrap — build a working, rigorous understanding of uncertainty and how to reason under it."
 status: available
 level: Intermediate
-price: 129
+price: 10900
 purchase_url: "#"
+course-link: /courses/probability-and-inference
+rating: 4.9
+raters: 305
 features:
   - 10 modules, 50+ lessons
   - Simulation-driven intuition

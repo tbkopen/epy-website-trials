@@ -3,8 +3,11 @@ title: "Linear Algebra for Machine Learning"
 description: "The geometry behind the matrices — eigenvectors, the SVD, and least squares, taught visually and applied to real ML problems."
 status: available
 level: Beginner
-price: 99
+price: 8900
 purchase_url: "#"
+course-link: /courses/linear-algebra-for-ml
+rating: 4.8
+raters: 412
 features:
   - 8 modules, 40+ lessons
   - Visual, geometry-first explanations

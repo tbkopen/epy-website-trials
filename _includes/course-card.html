@@ -1,8 +1,14 @@
 {% assign c = include.course %}
-<article class="course-card card card--outlined">
-  <a class="course-card__image-link" href="{{ c.url | relative_url }}" tabindex="-1" aria-hidden="true">
-    {% if c.image %}
-    <img class="course-card__image" src="{{ c.image | relative_url }}" alt="{{ c.image_alt | default: c.title }}" loading="lazy" decoding="async" width="800" height="450">
+{% assign course_link = c['course-link'] | default: c.url %}
+{% if course_link contains '://' %}
+  {% assign course_href = course_link %}
+{% else %}
+  {% assign course_href = course_link | relative_url %}
+{% endif %}
+<article class="course-card card card--outlined" data-status="{{ c.status | default: 'available' }}">
+  <a class="course-card__image-link" href="{{ course_href }}" tabindex="-1" aria-hidden="true">
+    {% if c.thumbnail %}
+    <img class="course-card__image" src="{{ c.thumbnail | relative_url }}" alt="{{ c.title }}" loading="lazy" decoding="async" width="800" height="450">
     {% else %}
     <span class="course-card__image">{% include cover.html seed=c.url title=c.title %}</span>
     {% endif %}
@@ -16,20 +22,30 @@
           {% else               %}Available
         {% endcase %}
       </span>
-      {% if c.level %}
-      <span class="chip chip--level">{{ c.level }}</span>
-      {% endif %}
     </div>
     <h2 class="course-card__title">
-      <a class="course-card__title-link stretched-link" href="{{ c.url | relative_url }}">{{ c.title }}</a>
+      <a class="course-card__title-link stretched-link" href="{{ course_href }}">{{ c.title }}</a>
     </h2>
     {% if c.description %}
     <p class="course-card__description">{{ c.description | truncate: 120 }}</p>
     {% endif %}
-    <div class="course-card__footer">
-      {% if c.price %}
-      <span class="course-card__price">${{ c.price }}</span>
+    {% if c.rating %}
+    <div class="course-card__rating" aria-label="Rated {{ c.rating }} out of 5{% if c.raters %} from {{ c.raters }} reviews{% endif %}">
+      <span class="course-card__stars" aria-hidden="true">
+        <span class="course-card__stars-bg">★★★★★</span>
+        <span class="course-card__stars-fg" style="width:{{ c.rating | times: 20 }}%">★★★★★</span>
+      </span>
+      <span class="course-card__rating-value">{{ c.rating }}</span>
+      {% if c.raters %}
+      <span class="course-card__rating-count">({{ c.raters }})</span>
       {% endif %}
+    </div>
+    {% endif %}
+    <div class="course-card__footer">
+      {% if c.price and c.status != 'coming-soon' %}
+      <span class="course-card__price">₹{{ c.price | inr }}</span>
+      {% endif %}
+      <a class="btn btn--soft course-card__cta" href="{{ course_href }}">Learn more →</a>
     </div>
   </div>
 </article>
