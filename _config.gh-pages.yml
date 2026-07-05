@@ -1,0 +1,14 @@
+# Overrides for building on GitHub Pages (see .github/workflows/deploy.yml).
+#
+# This repo is a *project* site (tbkopen/epy-website-trials), not a
+# `tbkopen.github.io` user/org site, so GitHub serves it under a
+# `/epy-website-trials` path instead of the domain root. Every internal link
+# in this codebase goes through the `relative_url`/`absolute_url` filters,
+# which prepend `baseurl` — so it must be set here or every asset and link
+# 404s on the deployed site even though the build itself succeeds.
+#
+# If a custom domain is added later (CNAME file + DNS), switch back to
+# baseurl: "" and set url to the custom domain, since custom domains serve
+# from the root.
+url:     "https://tbkopen.github.io"
+baseurl: "/epy-website-trials"
