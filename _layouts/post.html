@@ -8,11 +8,6 @@ layout: default
     <div class="container container--narrow">
       {% include breadcrumbs.html l1_label="Blog" l1_url="/blog/" current=page.title %}
 
-      {% if page.categories and page.categories.size > 0 %}
-      {% assign cat_slug = page.categories.first | slugify %}
-      <a class="chip chip--filter post-header__category" href="{{ '/categories/' | append: cat_slug | append: '/' | relative_url }}">{{ page.categories.first }}</a>
-      {% endif %}
-
       <h1 class="post-header__title" itemprop="headline">{{ page.title }}</h1>
 
       {% include post-meta.html %}

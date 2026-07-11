@@ -68,12 +68,6 @@ pre:focus-within .copy-code-btn { opacity: 1; }
   }
 }
 
-// Post-header category chip
-.post-header__category {
-  display: inline-flex;
-  margin-bottom: var(--space-4);
-}
-
 // Series navigation (multi-part posts)
 .series-nav {
   background: var(--color-secondary-container);

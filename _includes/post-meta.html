@@ -12,7 +12,8 @@
   <span class="post-meta__sep" aria-hidden="true">·</span>
   <ul class="post-meta__categories" role="list" aria-label="Categories">
     {% for cat in page.categories %}
-    <li><a class="chip chip--filter" href="{{ '/blog/?category=' | append: cat | relative_url }}">{{ cat }}</a></li>
+    {% assign cat_slug = cat | slugify %}
+    <li><a class="chip chip--filter" href="{{ '/categories/' | append: cat_slug | append: '/' | relative_url }}">{{ cat }}</a></li>
     {% endfor %}
   </ul>
   {% endif %}
