@@ -3,8 +3,10 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-10);
-  padding-top: var(--space-6);
+  // Uniform divider rhythm — equal space above and below, shared with
+  // .post-author and .comments so every bottom-of-post divider matches.
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
   border-top: 1px solid var(--color-outline-variant);
 
   &__label {

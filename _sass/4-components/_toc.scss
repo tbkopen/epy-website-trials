@@ -39,10 +39,11 @@
 
     a {
       display: block;
-      font-size: var(--type-body-small);
+      font-size: var(--type-body-medium);
+      line-height: 1.4;
       color: var(--color-on-surface-variant);
       text-decoration: none;
-      padding: var(--space-1) var(--space-3);
+      padding: var(--space-2) var(--space-3);
       border-radius: var(--shape-extra-small);
       border-left: 2px solid transparent;
       transition:

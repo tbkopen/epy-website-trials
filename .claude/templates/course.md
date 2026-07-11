@@ -1,6 +1,7 @@
 ---
 layout: course
 title: "Course Title"
+uid: course-uid          # stable id used by posts' `related_course` to promote this course
 slug: course-slug
 tagline: "One benefit-focused sentence that states the outcome the student will achieve."
 description: "Two to three sentences for SEO meta and the course listing card. What is it, who is it for, what will they be able to do."

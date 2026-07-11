@@ -1,0 +1,53 @@
+// ── In-post course CTA ────────────────────────────────────────────────────────
+// Opt-in promotion card rendered inside a post (see _includes/post-course-cta.html).
+// Horizontal band: copy on the left, filled button on the right. Composes with
+// the base `.card` (radius + hover state layer). Primary-tinted, no new colours.
+.post-cta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+  padding: var(--space-6);
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 24%, transparent);
+
+  &__eyebrow {
+    margin: 0 0 var(--space-1);
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+  }
+
+  &__title {
+    font-family: var(--font-brand);
+    font-size: var(--type-title-large);
+    line-height: var(--lh-snug);
+    color: var(--color-on-surface);
+    margin: 0;
+  }
+
+  &__desc {
+    margin: var(--space-2) 0 0;
+    font-size: var(--type-body-medium);
+    color: var(--color-on-surface-variant);
+    line-height: var(--lh-relaxed);
+  }
+
+  &__button {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+
+    &__button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}

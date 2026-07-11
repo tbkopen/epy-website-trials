@@ -214,13 +214,15 @@
 
   &__layout {
     display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: var(--space-8);
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: var(--space-12);
     align-items: start;
   }
 
   &__content {
     min-width: 0;
+    // Fill the grid cell so the article uses the full width to the right of the
+    // TOC rail (bounded by the page container). No max-width cap here.
     padding-bottom: var(--space-16);
 
     &--full {
@@ -290,6 +292,15 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-5);
+  }
+
+  // Related posts: fixed 3-up so a 3-card row fills symmetrically (no empty
+  // trailing track that auto-fill leaves on wide screens).
+  &--related {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 640px) { grid-template-columns: 1fr; }
   }
 }
 

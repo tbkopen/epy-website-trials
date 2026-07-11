@@ -1,10 +1,11 @@
-{% if page.comments and site.remark42_host %}
+{% if page.comments and site.comments_enabled and site.remark42_host %}
 <section class="comments" aria-label="Comments">
   <h2 class="comments__title">Comments</h2>
   <div id="remark42"
        data-host="{{ site.remark42_host }}"
        data-site-id="{{ site.remark42_site_id }}"
        data-url="{{ page.url | absolute_url }}">
+    <p class="comments__status" data-comments-status>Loading comments…</p>
   </div>
 </section>
 <script defer src="{{ '/assets/js/features/comments.js' | relative_url }}"></script>

@@ -1,5 +1,6 @@
 ---
 title: "Algorithms in Depth"
+uid: algorithms-in-depth
 description: "Beyond memorising solutions — learn the design principles that let you derive algorithms and prove they're correct and fast."
 status: available
 level: Advanced

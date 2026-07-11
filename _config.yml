@@ -14,7 +14,11 @@ social:
   github:   "[your-handle]"
   linkedin: "[your-handle]"
 
-# Remark42 comments (local Docker — see docker-compose.dev.yml)
+# Remark42 comments
+# TODO: replace remark42_host with the real production HTTPS origin of the
+# Remark42 server. Until then, comments will show a graceful "temporarily
+# unavailable" message rather than a blank section.
+comments_enabled: true
 remark42_host:    "http://localhost:8080"
 remark42_site_id: "elastropy"
 

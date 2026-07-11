@@ -9,6 +9,13 @@
   &__date { font-weight: 500; }
   &__sep { color: var(--color-outline); }
 
+  // Optional byline — accent colour so it reads distinctly from the muted
+  // date/reading-time and from the outlined category chips.
+  &__author {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
   &__categories {
     display: flex;
     flex-wrap: wrap;

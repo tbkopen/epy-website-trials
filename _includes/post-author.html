@@ -1,0 +1,20 @@
+{% comment %}
+  End-of-post author block — plain (not a card), shown only when the post sets
+  `show-authors: true` AND an `author` name is present. `author_bio` and
+  `author-link` are optional: the bio shows below the "Written by" line when
+  written, and the name links to `author-link` (e.g. a profile page) when present.
+{% endcomment %}
+{% if page['show-authors'] and page.author %}
+{% assign author_link = page['author-link'] %}
+<section class="post-author" aria-label="About the author">
+  <span class="post-author__bar" aria-hidden="true"></span>
+  <div class="post-author__content">
+    <p class="post-author__name">Written by
+      {%- if author_link %} <a class="post-author__link" href="{{ author_link }}" rel="noopener noreferrer" target="_blank">{{ page.author }}</a>
+      {%- else %} {{ page.author }}
+      {%- endif %}
+    </p>
+    {% if page.author_bio %}<p class="post-author__bio">{{ page.author_bio }}</p>{% endif %}
+  </div>
+</section>
+{% endif %}

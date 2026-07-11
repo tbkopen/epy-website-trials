@@ -1,7 +1,8 @@
 .comments {
-  padding-top: var(--space-10);
+  // Uniform divider rhythm — matches .share-buttons and .post-author.
+  padding-top: var(--space-8);
   border-top: 1px solid var(--color-outline-variant);
-  margin-top: var(--space-10);
+  margin-top: var(--space-8);
 
   &__title {
     font-size: var(--type-headline-small);
@@ -14,5 +15,11 @@
     --remark42-text-color: var(--color-on-surface);
     --remark42-bg-color: var(--color-surface);
     --remark42-link-color: var(--color-primary);
+  }
+
+  // Loading / unavailable placeholder (removed by JS once the widget mounts)
+  &__status {
+    color: var(--color-on-surface-variant);
+    font-size: var(--type-body-medium);
   }
 }

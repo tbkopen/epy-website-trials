@@ -38,7 +38,7 @@ layout: default
     </div>
     {% endif %}
 
-    <div class="post__content{% unless page.toc %} post__content--full{% endunless %} container--narrow">
+    <div class="post__content{% unless page.toc %} post__content--full{% endunless %}">
 
       {% include series-nav.html %}
 
@@ -46,14 +46,12 @@ layout: default
         {{ content }}
       </div>
 
+      {% include post-course-cta.html %}
       {% include share-buttons.html %}
-      {% include author-bio.html %}
+      {% include post-author.html %}
+      {% include comments.html %}
     </div>
 
-  </div>
-
-  <div class="container container--narrow">
-    {% include comments.html %}
   </div>
 
   <div class="container">
@@ -74,7 +72,7 @@ layout: default
   "dateModified": "{{ page.last_modified_at | default: page.date | date_to_xmlschema }}",
   "author": {
     "@type": "Person",
-    "name": {{ site.data.authors['site-author'].name | jsonify }}
+    "name": {{ page.author | default: site.data.authors['site-author'].name | jsonify }}
   },
   "publisher": {
     "@type": "Organization",

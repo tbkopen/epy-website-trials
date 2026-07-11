@@ -1,5 +1,6 @@
 ---
 title: "Linear Algebra for Machine Learning"
+uid: linear-algebra-ml
 description: "The geometry behind the matrices — eigenvectors, the SVD, and least squares, taught visually and applied to real ML problems."
 status: available
 level: Beginner

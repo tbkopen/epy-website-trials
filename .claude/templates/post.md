@@ -11,7 +11,11 @@ comments: true
 # image: /assets/images/posts/YYYY-MM-DD-cover.jpg   # omit to auto-generate an SVG cover
 # toc: true                                          # table of contents from ## headings
 # series: "Series Name"                              # links posts that share this series
-# course_cta: course-slug
+# show-authors: true                                 # show the end-of-post "Written by" block (needs author)
+# author: "Your Name"                                 # byline: inline meta line + end-of-post block
+# author_bio: "One or two sentences about the author." # optional bio under the byline
+# author-link: "https://www.linkedin.com/in/you"      # optional — links the author name to a profile
+# related_course: course-uid                         # show a course CTA in the post (uid from _courses/*.md)
 # last_modified_at: YYYY-MM-DD
 ---
 

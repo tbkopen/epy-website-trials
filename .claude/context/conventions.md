@@ -33,10 +33,20 @@ comments: true     # set false to disable Remark42 on this post
 ```yaml
 image: /assets/images/posts/YYYY-MM-DD-cover.jpg  # OG/Twitter card image
 toc: true                  # render auto table of contents
-course_cta: course-slug    # show a CTA box for this course at the bottom
-author: site-author        # key in _data/authors.yml (default: site-author)
+show-authors: true         # show the end-of-post "Written by" block (requires author; default: off)
+author: "Your Name"        # byline: inline meta line + end-of-post block; omit for none
+author_bio: "Short bio."   # optional; shown under the byline in the end-of-post block
+author-link: "https://..." # optional; links the author name to a profile (LinkedIn, etc.)
+related_course: course-uid # opt-in course CTA in the post; value is a course `uid` (see below). Omit for no card
 last_modified_at: YYYY-MM-DD
 ```
+
+`author` is a plain display string (the byline), not a key into `_data/authors.yml`.
+The end-of-post author block renders only when `show-authors: true` **and** an
+`author` name is set. Within it, `author_bio` and `author-link` are each optional
+— with neither, it shows just the name; `author-link` makes the name a hyperlink.
+`related_course` must match a `uid:` on a file in `_courses/`; an unset or
+non-matching value renders no card (fails safe).
 
 ### Math Usage in Posts
 - Inline math: `$...$` or `\\(...\\)`
@@ -58,6 +68,7 @@ _courses/course-slug.md
 ---
 layout: course
 title: "Course Title"
+uid: course-uid           # stable id posts reference via `related_course` to promote this course
 slug: course-slug
 tagline: "One benefit-focused sentence."
 description: "Two to three sentences for SEO meta and course card."

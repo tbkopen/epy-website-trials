@@ -1,5 +1,6 @@
 ---
 title: "Numerical Computing with Python"
+uid: numerical-computing
 description: "Floating point, stability, and fast array computing — the practical numerics every scientific programmer needs."
 status: archived
 level: Intermediate

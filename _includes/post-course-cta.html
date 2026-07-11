@@ -1,0 +1,21 @@
+{% comment %}
+  Opt-in course promotion card for a post.
+  A post opts in with `related_course: <course-uid>` in its frontmatter.
+  Renders nothing if the variable is unset or if no course matches that uid,
+  so a typo or a retired course fails safe instead of showing a broken card.
+{% endcomment %}
+{% if page.related_course %}
+  {% assign course = site.courses | where: "uid", page.related_course | first %}
+  {% if course %}
+  <aside class="post-cta card" aria-label="Related course">
+    <div class="post-cta__body">
+      <p class="post-cta__eyebrow">Go deeper</p>
+      <h3 class="post-cta__title">{{ course.title }}</h3>
+      {% if course.description %}
+      <p class="post-cta__desc">{{ course.description | truncate: 120 }}</p>
+      {% endif %}
+    </div>
+    <a class="btn btn--filled post-cta__button" href="{{ course.url | relative_url }}">Explore the course →</a>
+  </aside>
+  {% endif %}
+{% endif %}
