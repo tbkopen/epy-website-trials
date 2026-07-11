@@ -49,10 +49,13 @@ The end-of-post author block renders only when `show-authors: true` **and** an
 non-matching value renders no card (fails safe).
 
 ### Math Usage in Posts
-- Inline math: `$...$` or `\\(...\\)`
-- Display/block math: `$$...$$` or `\\[...\\]`
-- Always set `math: true` in frontmatter when using either form
-- Avoid mixing display math inside lists — KaTeX can mis-render it
+- **Inline math: use `$$...$$`** (on the same line as text) — kramdown emits it as
+  `\(...\)` and KaTeX renders it inline. Do **not** use single `$...$`: kramdown
+  does not treat single `$` as math, so any `_` or `*` inside is parsed as
+  markdown emphasis (`<em>`), which shreds the expression and the surrounding text.
+- Display/block math: `$$...$$` on its own lines (kramdown emits `\[...\]`).
+- Always set `math: true` in frontmatter when using math.
+- Avoid mixing display math inside lists — KaTeX can mis-render it.
 
 ---
 

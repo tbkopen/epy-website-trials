@@ -31,8 +31,9 @@ Content here.
 
 Content here.
 
-<!-- If math: true, use standard LaTeX delimiters: -->
-<!-- Inline: $E = mc^2$ -->
+<!-- If math: true — use $$...$$ for BOTH inline and display (kramdown requirement; -->
+<!-- single $...$ inline breaks on underscores/asterisks). -->
+<!-- Inline: $$E = mc^2$$ -->
 <!-- Display block: -->
 <!--
 $$
