@@ -14,12 +14,14 @@ social:
   github:   "[your-handle]"
   linkedin: "[your-handle]"
 
-# Remark42 comments
-# TODO: replace remark42_host with the real production HTTPS origin of the
-# Remark42 server. Until then, comments will show a graceful "temporarily
-# unavailable" message rather than a blank section.
-comments_enabled: true
-remark42_host:    "http://localhost:8080"
+# Remark42 comments — DISABLED until a real, HTTPS Remark42 server exists.
+# Never ship this enabled with a localhost host: on the live (HTTPS) site the
+# browser blocks the localhost request as private-network access and shows an
+# "Access other apps and services on this device" permission prompt (issue #6).
+# To enable: stand up Remark42, set remark42_host to its HTTPS origin, then set
+# comments_enabled: true. (Local dev overrides these in _config.dev.yml.)
+comments_enabled: false
+remark42_host:    ""
 remark42_site_id: "elastropy"
 
 # Analytics — off by default; enabled via _config.prod.yml
