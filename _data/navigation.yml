@@ -3,8 +3,6 @@ primary:
     url: /blog/
   - label: Courses
     url: /courses/
-  - label: About
-    url: /about/
   - label: Contact
     url: /contact/
 
@@ -16,13 +14,12 @@ footer:
         url: /blog/
       - label: Courses
         url: /courses/
-      - label: Newsletter
-        url: /newsletter/
+      - label: YouTube
+        url: "https://www.youtube.com/@elastropy?sub_confirmation=1"
+        external: true
   connect:
     title: Connect
     links:
-      - label: About
-        url: /about/
       - label: Contact
         url: /contact/
   legal:

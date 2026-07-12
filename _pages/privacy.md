@@ -13,7 +13,7 @@ This site (elastropy.com) is a personal blog and course platform. Here's what yo
 
 **Comments:** Comments are powered by [Remark42](https://remark42.com), a self-hosted system. If you leave a comment, your display name and content are stored on this server. OAuth login providers (GitHub, Google, etc.) are governed by those providers' own privacy policies.
 
-**Email:** If you subscribe to the newsletter, your email address is stored by [Kit](https://kit.com) (formerly ConvertKit). See their [privacy policy](https://kit.com/privacy) for details. You can unsubscribe any time.
+**YouTube:** Subscribing to the [Elastropy YouTube channel](https://www.youtube.com/@elastropy) happens on YouTube and is governed by [Google's privacy policy](https://policies.google.com/privacy). This site does not collect or store email addresses.
 
 **Contact forms:** Messages submitted via the contact page are processed by [Formspree](https://formspree.io). See their [privacy policy](https://formspree.io/legal/privacy-policy/).
 

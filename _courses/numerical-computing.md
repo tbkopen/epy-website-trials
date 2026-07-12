@@ -46,4 +46,4 @@ If you're interested in numerical methods, start with these posts:
 - [Floating Point: The Numbers Lie]({% post_url 2026-03-15-floating-point-the-numbers-lie %})
 - [Vectorization: Why NumPy Is Fast]({% post_url 2026-04-01-vectorization-why-numpy-is-fast %})
 
-Want to know if an updated edition launches? [Subscribe to the newsletter](/newsletter/).
+Want to know if an updated edition launches? [Subscribe on YouTube](https://www.youtube.com/@elastropy?sub_confirmation=1).

@@ -41,7 +41,7 @@ That's the goal here.
 
 ## The courses
 
-Alongside the blog, I'm building structured courses for people who want to go deeper with the support of exercises, worked solutions, and a clear progression. If you want to know when they launch, [subscribe](/newsletter/).
+Alongside the blog, I'm building structured courses for people who want to go deeper with the support of exercises, worked solutions, and a clear progression. If you want to know when they launch, [subscribe on YouTube](https://www.youtube.com/@elastropy?sub_confirmation=1).
 
 ## Let's get started
 

@@ -1,36 +1,25 @@
 {%- comment -%}
+  YouTube channel subscribe CTA. Reuses the .newsletter-panel / .newsletter-form
+  styles for layout so the visual treatment is unchanged.
   Optional params:
     heading    — panel title (if set, renders the full primary-container panel)
     subheading — supporting line under the title
-  With no params it renders the compact inline form (sidebar use).
+  With no params it renders the compact inline variant (sidebar / waitlist use).
 {%- endcomment -%}
+{%- assign youtube_url = "https://www.youtube.com/@elastropy?sub_confirmation=1" -%}
 {% if include.heading %}
 <div class="newsletter-panel">
   <div class="newsletter-panel__text">
     <h2 class="newsletter-panel__title">{{ include.heading }}</h2>
     {% if include.subheading %}<p class="newsletter-panel__subtitle">{{ include.subheading }}</p>{% endif %}
   </div>
-  <form class="newsletter-form__row"
-        action="https://app.kit.com/forms/[KIT_FORM_ID]/subscriptions"
-        method="post" target="_blank" novalidate>
-    <label class="sr-only" for="newsletter-email-panel">Email address</label>
-    <input class="newsletter-form__input" id="newsletter-email-panel" type="email"
-           name="email_address" placeholder="you@example.com" required autocomplete="email">
-    <button class="btn btn--filled" type="submit">Subscribe</button>
-  </form>
-  <p class="newsletter-panel__disclaimer">No spam. Unsubscribe any time.</p>
+  <a class="btn btn--filled" href="{{ youtube_url }}" rel="noopener noreferrer" target="_blank">Subscribe on YouTube</a>
+  <p class="newsletter-panel__disclaimer">New tutorials every week. Free to subscribe.</p>
 </div>
 {% else %}
 <div class="newsletter-form">
-  <p class="newsletter-form__label">Get new posts in your inbox.</p>
-  <form class="newsletter-form__row"
-        action="https://app.kit.com/forms/[KIT_FORM_ID]/subscriptions"
-        method="post" target="_blank" novalidate>
-    <label class="sr-only" for="newsletter-email">Email address</label>
-    <input class="newsletter-form__input" id="newsletter-email" type="email"
-           name="email_address" placeholder="you@example.com" required autocomplete="email">
-    <button class="btn btn--filled btn--sm" type="submit">Subscribe</button>
-  </form>
-  <p class="newsletter-form__disclaimer">No spam. Unsubscribe any time.</p>
+  <p class="newsletter-form__label">Get new tutorials on YouTube.</p>
+  <a class="btn btn--filled btn--sm" href="{{ youtube_url }}" rel="noopener noreferrer" target="_blank">Subscribe on YouTube</a>
+  <p class="newsletter-form__disclaimer">New tutorials every week. Free to subscribe.</p>
 </div>
 {% endif %}
