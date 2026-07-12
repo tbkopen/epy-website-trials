@@ -1,6 +1,7 @@
 ---
 title: "Probability & Statistical Inference"
 uid: probability-inference
+popular-course-id: p3
 description: "From sample spaces to the bootstrap — build a working, rigorous understanding of uncertainty and how to reason under it."
 status: available
 level: Intermediate

@@ -1,6 +1,7 @@
 ---
 title: "Algorithms in Depth"
 uid: algorithms-in-depth
+popular-course-id: p1
 description: "Beyond memorising solutions — learn the design principles that let you derive algorithms and prove they're correct and fast."
 status: available
 level: Advanced

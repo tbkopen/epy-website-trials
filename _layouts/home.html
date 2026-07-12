@@ -20,8 +20,29 @@ layout: default
     <h1 class="hero__title">{{ site.title }}</h1>
     <p class="hero__tagline">{{ site.tagline }}</p>
     <div class="hero__actions">
-      <a class="btn btn--filled btn--lg" href="{{ '/blog/' | relative_url }}">Read the Blog</a>
-      <a class="btn btn--tonal btn--lg" href="{{ '/courses/' | relative_url }}">Browse Courses</a>
+      <a class="btn btn--filled btn--lg" href="{{ '/courses/' | relative_url }}">Browse Courses</a>
+      <a class="btn btn--tonal btn--lg" href="{{ '/blog/' | relative_url }}">Read the Blog</a>
+    </div>
+  </div>
+</section>
+
+<!-- Popular Courses -->
+{% assign popular_courses = site.courses | sort: "popular-course-id" %}
+<section class="section section--tinted" aria-labelledby="courses-heading">
+  <div class="container">
+    <div class="section__header">
+      <h2 class="section__title" id="courses-heading">Popular Courses</h2>
+      <a class="btn btn--text" href="{{ '/courses/' | relative_url }}">
+        All courses <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+    <div class="course-grid" data-pagefind-ignore>
+      {% for course in popular_courses %}
+        {% assign pid = course["popular-course-id"] %}
+        {% if pid == "p1" or pid == "p2" or pid == "p3" %}
+          {% include course-card.html course=course %}
+        {% endif %}
+      {% endfor %}
     </div>
   </div>
 </section>
@@ -35,42 +56,12 @@ layout: default
         All posts <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
       </a>
     </div>
-    <div class="post-grid" data-pagefind-ignore>
-      {% for post in site.posts limit: 6 %}
+    <div class="post-grid post-grid--home" data-pagefind-ignore>
+      {% for post in site.posts limit: 3 %}
         {% include post-card.html post=post %}
       {% endfor %}
     </div>
   </div>
 </section>
-
-<!-- About strip -->
-{% include about-strip.html %}
-
-<!-- Newsletter CTA -->
-<section class="section section--tinted" aria-labelledby="newsletter-heading">
-  <div class="container container--narrow">
-    {% include newsletter-form.html heading="Stay in the loop" subheading="New posts, course launches, and the occasional rabbit hole — straight to your inbox." %}
-  </div>
-</section>
-
-<!-- Courses Teaser -->
-{% assign available_courses = site.courses | where: "status", "available" %}
-{% if available_courses.size > 0 %}
-<section class="section" aria-labelledby="courses-heading">
-  <div class="container">
-    <div class="section__header">
-      <h2 class="section__title" id="courses-heading">Courses</h2>
-      <a class="btn btn--text" href="{{ '/courses/' | relative_url }}">
-        All courses <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-      </a>
-    </div>
-    <div class="course-grid" data-pagefind-ignore>
-      {% for course in available_courses limit: 3 %}
-        {% include course-card.html course=course %}
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 {{ content }}

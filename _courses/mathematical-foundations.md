@@ -1,6 +1,7 @@
 ---
 title: "Mathematical Foundations of Machine Learning"
 uid: math-foundations
+popular-course-id: p5
 description: "A rigorous ground-up treatment of the linear algebra, probability, and optimisation that underpins modern ML — with proofs, intuitions, and code."
 status: coming-soon
 level: Intermediate

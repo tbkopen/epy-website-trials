@@ -302,6 +302,21 @@
     @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
     @media (max-width: 640px) { grid-template-columns: 1fr; }
   }
+
+  // Home "Latest Posts": fixed 3-up so the cards span the full container width
+  // instead of left-packing into narrow auto-fill tracks. Shorter image band
+  // keeps the cards from feeling too tall.
+  &--home {
+    grid-template-columns: repeat(3, 1fr);
+
+    @media (max-width: 900px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 640px) { grid-template-columns: 1fr; }
+
+    .post-card__image,
+    .post-card__image .cover {
+      aspect-ratio: 21 / 9;
+    }
+  }
 }
 
 .page-content,
