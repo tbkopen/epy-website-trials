@@ -184,7 +184,9 @@
 
   &[hidden] { display: none; }
 
-  &__image { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+  // Shorter 21:9 band (matching the home "Latest Posts" cards) keeps course
+  // cards from feeling too tall, on both the home page and the courses index.
+  &__image { display: block; width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
 
   // Flex column so the footer (price + CTA) can pin to the bottom via
   // margin-top: auto, keeping it aligned across cards of unequal content length.
