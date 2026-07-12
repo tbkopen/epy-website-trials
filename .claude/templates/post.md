@@ -16,6 +16,7 @@ comments: true
 # author_bio: "One or two sentences about the author." # optional bio under the byline
 # author-link: "https://www.linkedin.com/in/you"      # optional — links the author name to a profile
 # related_course: course-uid                         # show a course CTA in the post (uid from _courses/*.md)
+# related_posts: [some-post-slug, another-post-slug]  # hand-pick end-of-post related posts (first 3 shown); omit to auto-pick by shared category/tag. Slug = filename without the date prefix.
 # last_modified_at: YYYY-MM-DD
 ---
 

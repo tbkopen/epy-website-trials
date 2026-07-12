@@ -1,16 +1,37 @@
 {% assign maxRelated = 3 %}
 {% assign related = "" | split: "" %}
 
-{% for post in site.posts %}
-  {% if post.url == page.url %}{% continue %}{% endif %}
-  {% assign shared = post.categories | concat: post.tags | uniq %}
+{% if page.related_posts and page.related_posts.size > 0 %}
+  {%- comment -%}
+    Manual selection: the author lists post slugs in frontmatter, e.g.
+      related_posts: [welcome-to-elastropy, some-other-post]
+    A slug is the filename without the date prefix or extension. The author may
+    list as many as they like; order is preserved and only the first maxRelated
+    are shown. Unknown slugs and the current post are skipped silently.
+  {%- endcomment -%}
+  {% for ref in page.related_posts %}
+    {% assign match = site.posts | where: "slug", ref | first %}
+    {% if match and match.url != page.url %}
+      {% assign related = related | push: match %}
+    {% endif %}
+    {% if related.size >= maxRelated %}{% break %}{% endif %}
+  {% endfor %}
+{% else %}
+  {%- comment -%}
+    Automatic fallback (no related_posts set): the most recent posts that share
+    at least one category or tag with the current post.
+  {%- endcomment -%}
   {% assign pageTerms = page.categories | concat: page.tags | uniq %}
-  {% assign intersection = shared | where_exp: "t", "pageTerms contains t" %}
-  {% if intersection.size > 0 %}
-    {% assign related = related | push: post %}
-  {% endif %}
-  {% if related.size >= maxRelated %}{% break %}{% endif %}
-{% endfor %}
+  {% for post in site.posts %}
+    {% if post.url == page.url %}{% continue %}{% endif %}
+    {% assign shared = post.categories | concat: post.tags | uniq %}
+    {% assign intersection = shared | where_exp: "t", "pageTerms contains t" %}
+    {% if intersection.size > 0 %}
+      {% assign related = related | push: post %}
+    {% endif %}
+    {% if related.size >= maxRelated %}{% break %}{% endif %}
+  {% endfor %}
+{% endif %}
 
 {% if related.size > 0 %}
 <section class="related-posts" aria-label="Related posts">
