@@ -125,6 +125,18 @@ Always use a template — never write frontmatter from scratch:
   cards) so their opaque rectangular PNG backgrounds dissolve into the hero surface in both themes
   instead of showing hard borders. See `IMPLEMENTATION-PLAN.md` §4.2 for full detail.
 
+- **Announcement / alert bar** (`_includes/notification.html`, `_sass/4-components/_alert-bar.scss`,
+  `assets/js/features/notification.js`): a site-wide banner rendered above the header on every page
+  (included in `_layouts/default.html` before `header.html`). Its content is configured in
+  **`_pages/notification.md`** front matter (`enabled`, `text`, `button_text`, `button_url`); set
+  `enabled: false` to hide it. That file is config-only (`layout: null`, not a visible page) and is
+  read from the **`pages` collection via `site.collections`** — a direct `site.pages` lookup collides
+  with Jekyll's built-in pages list and won't find it. The bar is theme-aware (primary fill +
+  on-primary text, outlined button), so it blends in light and dark rather than a hard-coded blue.
+  It is **dismissible**: `notification.js` (deferred, loaded from the include like `theme.js`) hides
+  the bar on close and stores it in `localStorage`, keyed to the banner content
+  (`data-alert-key`), so editing the text/button re-shows the bar to everyone.
+
 ---
 
 ## Key Files to Read First

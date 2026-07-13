@@ -1,0 +1,85 @@
+// Site-wide announcement / alert bar (above the header).
+// Theme-aware via tokens: primary fill + on-primary text, so it stays legible
+// and on-brand in both light and dark instead of a hard-coded blue.
+.alert-bar {
+  position: relative;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+
+  &[hidden] { display: none; }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-5);
+    padding-block: var(--space-3);
+    // Clear the absolutely-positioned close button on both sides (keeps the
+    // text + button visually centred).
+    padding-inline: var(--space-10);
+  }
+
+  &__text {
+    margin: 0;
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-align: center;
+  }
+
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-5);
+    border: 1px solid var(--color-on-primary);
+    border-radius: var(--shape-small);
+    color: var(--color-on-primary);
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background var(--motion-duration-short2) var(--motion-easing-standard),
+      color var(--motion-duration-short2) var(--motion-easing-standard);
+
+    &:hover,
+    &:focus-visible {
+      background: var(--color-on-primary);
+      color: var(--color-primary);
+      outline: none;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 50%;
+    right: var(--space-4);
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: none;
+    border-radius: var(--shape-full);
+    background: transparent;
+    color: var(--color-on-primary);
+    cursor: pointer;
+    opacity: 0.85;
+    transition:
+      opacity var(--motion-duration-short2) var(--motion-easing-standard),
+      background var(--motion-duration-short2) var(--motion-easing-standard);
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      background: color-mix(in srgb, var(--color-on-primary) 18%, transparent);
+      outline: none;
+    }
+
+    .material-symbols-outlined { font-size: 20px; }
+  }
+}

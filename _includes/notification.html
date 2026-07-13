@@ -1,0 +1,28 @@
+{%- comment -%}
+  Site-wide announcement bar. Content comes from _pages/notification.md front
+  matter. That file is a document in the "pages" collection, so it's read via
+  site.collections (a direct `site.pages` lookup collides with Jekyll's built-in
+  pages list and would not find it). Edit _pages/notification.md to change the
+  text/button or set `enabled: false` to hide the bar. Rendered above the header
+  in _layouts/default.html.
+
+  Dismiss: notification.js hides the bar and remembers it in localStorage, keyed
+  to the content below (data-alert-key), so editing the text/button re-shows it.
+{%- endcomment -%}
+{%- assign pages_collection = site.collections | where: "label", "pages" | first -%}
+{%- assign notif = pages_collection.docs | where: "ref", "notification" | first -%}
+{%- if notif and notif.enabled and notif.text -%}
+{%- capture alert_key %}{{ notif.text }}|{{ notif.button_text }}|{{ notif.button_url }}{% endcapture -%}
+<aside class="alert-bar" aria-label="Site announcement" data-alert-key="{{ alert_key | strip | escape }}" data-pagefind-ignore>
+  <div class="container alert-bar__inner">
+    <p class="alert-bar__text">{{ notif.text }}</p>
+    {%- if notif.button_text and notif.button_url -%}
+    <a class="alert-bar__btn" href="{{ notif.button_url }}" target="_blank" rel="noopener noreferrer">{{ notif.button_text }}</a>
+    {%- endif -%}
+    <button class="alert-bar__close" id="alert-bar-close" type="button" aria-label="Dismiss announcement">
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+  </div>
+</aside>
+<script defer src="{{ '/assets/js/features/notification.js' | relative_url }}"></script>
+{%- endif -%}
