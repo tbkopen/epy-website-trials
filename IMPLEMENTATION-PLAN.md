@@ -132,11 +132,38 @@ These are concrete defects found by reading every source file against the spec, 
 - In `_layouts/post.html`, `course.html`, `page.html`: **delete the inline `{% capture %}` blocks** and call the include once with the right crumb list.
 - `_sass/4-components/_breadcrumb.scss`: separator via icon, not `/`.
 
-### 4.2 Hero redesign (`home.html` + `_page-sections.scss`)
-- Background: layered `radial-gradient` mesh in primary/tertiary container tones (very low saturation) + optional faint SVG grid or formula watermark (decorative, `aria-hidden`).
-- Type: brand serif title at `clamp(2.5rem, 6vw, 4rem)`, balanced with `text-wrap: balance`.
-- Add a thin "now / latest" eyebrow row and a secondary "search the archive" affordance.
-- Buttons: primary "Read the Blog" filled, "Browse Courses" tonal (not outlined — more inviting).
+### 4.2 Hero redesign (`home.html` + `_page-sections.scss`) — DONE (branch `feature/hero-redesign`)
+
+Superseded the original plan (gradient-mesh, centered layout) with a two-column
+"product hero" layout, matching a supplied reference design:
+
+- **Layout**: `.hero__inner` is a 2-col grid ≥960px (content | illustration),
+  single column + illustration hidden below that.
+- **Content**: `.hero__title` is `<h1>AI/ML &amp; Scientific Computing</h1>`
+  and `.hero__subtext` is the "Expert-led courses and corporate training for
+  engineers…" description — both new copy (not the site tagline). Brand serif
+  (`--font-brand`) kept on `.hero__title` for consistency with the rest of the
+  type system, at heavier weight/tighter clamp than before. There is no
+  separate badge/eyebrow element — the heading/subtext text carries what was
+  originally split across a badge + separate headline.
+- **Buttons unchanged**: still "Browse Courses" → `/courses/` (now `btn--filled`
+  with an `arrow_forward` icon) and "Read the Blog" → `/blog/` (now
+  `btn--outlined` instead of `btn--tonal`) — same labels/links as before the
+  redesign, only the button variant changed to match the reference.
+- **Background**: kept the original tinted radial-gradient background on
+  `.hero` (primary/tertiary tint over `--color-surface`) — do not flatten this
+  to plain white, that was explicitly reverted once already.
+- **Illustration** (`.hero__art`, ≥960px only): hand-authored inline SVG —
+  a dot-grid pattern, a 5×5 wireframe "surface" mesh (quadratic-bezier rows +
+  computed column verticals) sitting on a platform ellipse, with dashed
+  connector lines out to four floating `.hero__art-card` labels (Neural
+  Operators, PDE Modeling, Scientific ML, Simulation) positioned absolutely
+  by percentage. No binary/external image assets. (This was removed once by
+  request and has since been restored — treat it as intentional/current.)
+- **No feature strip**: the 3-column panel below the hero (`.hero__stats` —
+  Strong Fundamentals / Practical Implementation / Real-world R&D) was built,
+  then removed by request. The `<section class="hero">` now ends right after
+  `.hero__inner` — do not re-add a stats/feature strip without checking first.
 
 ### 4.3 Home: add About strip
 - New section between Newsletter and Courses: portrait (rounded), 2–3 sentence bio pulled from `_data/authors.yml`, "More about me →" link. New include `_includes/about-strip.html`.

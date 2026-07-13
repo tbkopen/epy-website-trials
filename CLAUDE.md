@@ -92,6 +92,19 @@ Always use a template — never write frontmatter from scratch:
 
 ---
 
+## Recent Design Changes
+
+- **Home hero** (`_layouts/home.html`, `_sass/3-layout/_page-sections.scss`): redesigned as a
+  two-column layout — `<h1 class="hero__title">AI/ML &amp; Scientific Computing</h1>` followed
+  by `<p class="hero__subtext">` (Expert-led courses… description) and the buttons on the left,
+  a hand-built inline-SVG illustration (`.hero__art*`) on the right. The 3-item feature strip
+  (`.hero__stats`) that was originally added below the hero was removed by request — do not
+  reintroduce it without checking with the user first. Buttons kept their original labels/links
+  ("Browse Courses" → `/courses/`, "Read the Blog" → `/blog/`); only their variant changed
+  (filled + outlined). See `IMPLEMENTATION-PLAN.md` §4.2 for full detail.
+
+---
+
 ## Key Files to Read First
 
 | File | Why read it |
