@@ -153,13 +153,68 @@ Superseded the original plan (gradient-mesh, centered layout) with a two-column
 - **Background**: kept the original tinted radial-gradient background on
   `.hero` (primary/tertiary tint over `--color-surface`) — do not flatten this
   to plain white, that was explicitly reverted once already.
-- **Illustration** (`.hero__art`, ≥960px only): hand-authored inline SVG —
-  a dot-grid pattern, a 5×5 wireframe "surface" mesh (quadratic-bezier rows +
-  computed column verticals) sitting on a platform ellipse, with dashed
-  connector lines out to four floating `.hero__art-card` labels (Neural
-  Operators, PDE Modeling, Scientific ML, Simulation) positioned absolutely
-  by percentage. No binary/external image assets. (This was removed once by
-  request and has since been restored — treat it as intentional/current.)
+- **Illustration** (`.hero__art`, ≥960px only) — **superseded again, now image-based**:
+  the hand-authored inline SVG (dot-grid, connectors, wireframe mesh, pedestal,
+  per-card SVG icons — described in earlier revisions of this section) was
+  replaced with real PNG artwork supplied by the user, composited via CSS:
+  - `.hero__art-graphic`: `position: relative`, `aspect-ratio: 807 / 462`,
+    `width: 100%`, `max-width: 600px`, `margin-inline: auto` (enlarged from the
+    original 440px and the hero's right grid column widened to `600px` to match,
+    so the wide/short graphic fills the vertical empty space beside the taller
+    text column and reads as evenly distributed). Scaling the whole box keeps all
+    four overlays aligned since they're positioned as percentages of it.
+  - `.hero__art-base` (`<img src="base-clean.png">`): absolutely positioned
+    `inset: 0`, `width/height: 100%`, `z-index: 1` — the base 3D graphic
+    (mesh/plane/pedestal, cards ghosted out). **Edge-feathered** via `mask-image`
+    (two axis-aligned linear gradients, `mask-composite: intersect` + WebKit
+    `source-in` fallback) so the rectangular PNG boundary fades into the hero
+    background on all four sides instead of showing a hard border — the baked-in
+    PNG background never exactly matches the hero surface, so without this the
+    rectangle edge is visible in both light and dark. Center (~7%–93% each axis)
+    stays fully opaque, so the wireframe/pedestal are untouched.
+  - Four `.hero__art-overlay--*` `<img>`s, `z-index: 2`, absolutely positioned
+    by percentage (left/top/width/height), each with a `floatCard` keyframe
+    (`translateY` bob, staggered duration/delay per card). No drop-shadow
+    filters — shadows are baked into the PNGs. Each card carries the **same
+    edge-feather `mask-image`** as the base (5% edge vs the base's 7%, gentler
+    because the cards are small and their titles sit near the top edge): the
+    card PNGs are 100%-opaque near-white rectangles (verified — panel and
+    surrounding margin are the same ~250 white, separated only by the baked
+    shadow), so the mask is what dissolves their rectangular background into the
+    hero surface in both themes. Done in CSS (non-destructive) rather than by
+    knocking out the PNG backgrounds, since panel and background share a colour
+    and a flood-fill knockout would be leak-prone and destructive.
+  - **Critical gotcha**: the files in `assets/uploads/` are mislabeled relative
+    to their content (verified by opening each file and cross-checking pixel
+    aspect ratio against each position slot's aspect ratio — not by filename).
+    Actual mapping used in the markup:
+    | Position slot | File referenced | Actual content |
+    |---|---|---|
+    | `--neural` (top-left) | `box-pde.png` | Neural Operators |
+    | `--pde` (top-right) | `box-sciml.png` | PDE Modeling |
+    | `--sciml` (bottom-left) | `box-sim.png` | Scientific ML |
+    | `--sim` (bottom-right) | `center-graphic.png` | Simulation |
+
+    `box-neural.png` is unused — it's a duplicate of `base-clean.png`, not a
+    cropped card. Do not "fix" the `src` values to match filenames without
+    re-verifying file contents first.
+  - **Dark mode**: the light PNGs have a baked-in white background/shadows, so they
+    can't be recolored in CSS and look like white cards on a dark page. Fix: each
+    slot has a **light/dark `<img>` pair** — `.hero__art-media--light` (default,
+    shown when root is light or JS is off) and `.hero__art-media--dark`. CSS toggles
+    them off `[data-theme="dark"]` on `<html>` (set by `theme.js`) so they follow the
+    manual toggle, not only `prefers-color-scheme`. Dark files are the same names
+    with a `-dark` suffix and **must be supplied by the user** in `assets/uploads/`:
+    `base-clean-dark.png`, `box-pde-dark.png`, `box-sciml-dark.png`, `box-sim-dark.png`,
+    `center-graphic-dark.png` (each the dark-themed version of the *same content* as
+    its light counterpart — so the mislabel mapping above still holds). Until these
+    exist, dark mode shows missing images for the graphic.
+    - Why `<img>`-pairs and not a CSS `background-image` swap: the `_sass/**` partials
+      aren't Liquid-processed (only `main.scss` is, and it just `@import`s them), so
+      they can't use `relative_url`; and gh-pages sets `baseurl: "/epy-website-trials"`,
+      so a hardcoded `/assets/…` path in CSS would 404 there. `<img src="{{ … |
+      relative_url }}">` is baseurl-safe. Trade-off: both themes' PNGs are downloaded
+      (the hidden set still loads), an accepted cost for correct paths.
 - **No feature strip**: the 3-column panel below the hero (`.hero__stats` —
   Strong Fundamentals / Practical Implementation / Real-world R&D) was built,
   then removed by request. The `<section class="hero">` now ends right after

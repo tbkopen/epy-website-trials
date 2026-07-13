@@ -94,14 +94,36 @@ Always use a template — never write frontmatter from scratch:
 
 ## Recent Design Changes
 
-- **Home hero** (`_layouts/home.html`, `_sass/3-layout/_page-sections.scss`): redesigned as a
-  two-column layout — `<h1 class="hero__title">AI/ML &amp; Scientific Computing</h1>` followed
-  by `<p class="hero__subtext">` (Expert-led courses… description) and the buttons on the left,
-  a hand-built inline-SVG illustration (`.hero__art*`) on the right. The 3-item feature strip
-  (`.hero__stats`) that was originally added below the hero was removed by request — do not
-  reintroduce it without checking with the user first. Buttons kept their original labels/links
-  ("Browse Courses" → `/courses/`, "Read the Blog" → `/blog/`); only their variant changed
-  (filled + outlined). See `IMPLEMENTATION-PLAN.md` §4.2 for full detail.
+- **Home hero** (`_layouts/home.html`, `_sass/3-layout/_page-sections.scss`): two-column layout —
+  `<h1 class="hero__title">AI/ML &amp; Scientific Computing</h1>` followed by
+  `<p class="hero__subtext">` (Expert-led courses… description) and the buttons on the left; the
+  right side is now **image-based**, not hand-drawn SVG. `.hero__art-graphic` (`aspect-ratio:
+  807/462`, `max-width: 600px`, centered; the right grid column is widened to `600px` to match
+  and fill the vertical empty space beside the text) layers `base-clean.png` (the base 3D
+  graphic) under four
+  `.hero__art-overlay--*` PNGs (`box-pde.png`, `box-sciml.png`, `box-sim.png`,
+  `center-graphic.png`), each absolutely positioned by percentage and given a subtle
+  `floatCard` keyframe animation. **Dark mode**: each slot has a **light/dark `<img>` pair**
+  (`.hero__art-media--light` / `--dark`); CSS shows one based on the `[data-theme]` attribute on
+  `<html>` (set by `theme.js`), so the PNGs swap on the manual toggle, not just
+  `prefers-color-scheme`. The dark variants are the same filenames with a `-dark` suffix
+  (`base-clean-dark.png`, `box-pde-dark.png`, `box-sciml-dark.png`, `box-sim-dark.png`,
+  `center-graphic-dark.png`) and must be supplied in `assets/uploads/` — the light PNGs have a
+  baked-in white background so they can't be recolored in CSS. (This is keyed off `[data-theme]`
+  rather than CSS `background-image` because the SCSS partials aren't Liquid-processed and can't
+  use `relative_url`, and gh-pages sets a non-empty `baseurl`, so hardcoded CSS asset paths would
+  404 there — `<img src="{{ … | relative_url }}">` is the baseurl-safe path.) **Important**: the
+  files in `assets/uploads/` are mislabeled relative to their actual content (verified by cropping
+  + aspect ratio, not filename) — the markup deliberately points each position slot at the file
+  that visually matches, with a comment explaining this; do not "fix" the `src` values to match
+  filenames. The 3-item feature
+  strip (`.hero__stats`) that was originally added below the hero was removed by request — do
+  not reintroduce it without checking with the user first. Buttons kept their original
+  labels/links ("Browse Courses" → `/courses/`, "Read the Blog" → `/blog/`); only their variant
+  changed (filled + outlined). Both `.hero__art-base` and the four `.hero__art-overlay` cards are
+  edge-feathered with a `mask-image` (two intersected axis gradients — 7% on the base, 5% on the
+  cards) so their opaque rectangular PNG backgrounds dissolve into the hero surface in both themes
+  instead of showing hard borders. See `IMPLEMENTATION-PLAN.md` §4.2 for full detail.
 
 ---
 
