@@ -14,7 +14,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
 
     steps:
       # ==================================================
-      # Checkout and build the main website
+      # Build the main branch
       # ==================================================
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -38,7 +38,7 @@ jobs:
       - name: Set up Node for Pagefind
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Build main site
         env:
@@ -55,7 +55,7 @@ jobs:
             --output-path "${{ runner.temp }}/public/pagefind"
 
       # ==================================================
-      # Checkout and build the hero redesign preview
+      # Build the feature/hero-redesign branch
       # ==================================================
       - name: Checkout hero redesign branch
         uses: actions/checkout@v4
@@ -84,7 +84,7 @@ jobs:
             --output-path "${{ runner.temp }}/public/preview/pagefind"
 
       # ==================================================
-      # Upload and deploy both websites together
+      # Upload and deploy both versions together
       # ==================================================
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
