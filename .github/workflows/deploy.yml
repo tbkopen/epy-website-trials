@@ -2,7 +2,9 @@ name: Deploy Jekyll site to Pages
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - feature/hero-redesign
   workflow_dispatch:
 
 permissions:
@@ -17,40 +19,86 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # ==================================================
+      # Checkout and build the main website
+      # ==================================================
+      - name: Checkout main branch
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '.ruby-version'
+          ruby-version: ".ruby-version"
           bundler-cache: true
 
-      - name: Set up Node (for Pagefind)
+      - name: Set up Node for Pagefind
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
-      - name: Build site
+      - name: Build main site
         env:
           JEKYLL_ENV: production
-        run: bundle exec jekyll build --config _config.yml,_config.gh-pages.yml
+        run: |
+          bundle exec jekyll build \
+            --config _config.yml,_config.gh-pages.yml \
+            --destination "${{ runner.temp }}/public"
 
-      - name: Build search index
-        run: npx --yes pagefind --site _site --output-path _site/pagefind
+      - name: Build main Pagefind index
+        run: |
+          npx --yes pagefind \
+            --site "${{ runner.temp }}/public" \
+            --output-path "${{ runner.temp }}/public/pagefind"
 
+      # ==================================================
+      # Checkout and build the hero redesign preview
+      # ==================================================
+      - name: Checkout hero redesign branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/hero-redesign
+          path: preview-src
+
+      - name: Install preview dependencies
+        working-directory: preview-src
+        run: bundle install
+
+      - name: Build preview site
+        working-directory: preview-src
+        env:
+          JEKYLL_ENV: production
+        run: |
+          bundle exec jekyll build \
+            --config _config.yml,_config.gh-pages.yml \
+            --baseurl "/epy-website-trials/preview" \
+            --destination "${{ runner.temp }}/public/preview"
+
+      - name: Build preview Pagefind index
+        run: |
+          npx --yes pagefind \
+            --site "${{ runner.temp }}/public/preview" \
+            --output-path "${{ runner.temp }}/public/preview/pagefind"
+
+      # ==================================================
+      # Upload and deploy both websites together
+      # ==================================================
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: ${{ runner.temp }}/public
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
