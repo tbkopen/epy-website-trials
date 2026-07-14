@@ -56,7 +56,7 @@ layout: default
       <div class="course-purchase-card card card--elevated">
         <div class="card__content">
           {% if page.price %}
-          <p class="course-purchase-card__price">₹{{ page.price | inr }}</p>
+          <p class="course-purchase-card__price">{% if page.currency == 'USD' %}${{ page.price }}{% else %}₹{{ page.price | inr }}{% endif %}</p>
           {% endif %}
 
           {% if page.status == 'available' or page.status == nil %}
@@ -99,6 +99,6 @@ layout: default
   "name": {{ page.title | jsonify }},
   "url": "{{ page.url | absolute_url }}"
   {% if page.description %},"description": {{ page.description | jsonify }}{% endif %}
-  {% if page.price %},"offers": {"@type": "Offer", "price": "{{ page.price }}", "priceCurrency": "INR"}{% endif %}
+  {% if page.price %},"offers": {"@type": "Offer", "price": "{{ page.price }}", "priceCurrency": "{{ page.currency | default: 'INR' }}"}{% endif %}
 }
 </script>
