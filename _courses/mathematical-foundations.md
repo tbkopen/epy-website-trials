@@ -1,12 +1,10 @@
 ---
-title: "Mathematical Foundations of Machine Learning"
+title: "Physics-Informed Neural Operators with DeepONet"
 uid: math-foundations
 popular-course-id: p5
-description: "A rigorous ground-up treatment of the linear algebra, probability, and optimisation that underpins modern ML — with proofs, intuitions, and code."
+description: "Build Physics-Informed DeepONet neural operators from scratch in PyTorch — data-efficient operators that map inputs to full PDE solution fields and generalise across domains."
+thumbnail: /assets/images/courses/neural-operators-deeponet.png
 status: coming-soon
-level: Intermediate
-price: 12900
-course-link: https://epyconnect.exlyapp.com/fcc8edac-f02a-40b0-9110-e33abbcb113c
-rating: 4.7
-raters: 18
+level: Advanced
+course-link: https://epyconnect.exlyapp.com/552bb2be-592c-4b40-b46b-3750978178b6
 ---

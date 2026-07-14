@@ -4,8 +4,8 @@
   var LABELS = {
     all: 'All Courses',
     available: 'Available Now',
-    'coming-soon': 'Coming Soon',
-    archived: 'Archived'
+    'coming-soon': 'Coming Soon'
+    // archived: 'Archived'   // archived temporarily hidden
   };
 
   document.addEventListener('DOMContentLoaded', function () {

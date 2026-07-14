@@ -5,8 +5,8 @@
 {%- endcomment -%}
 {% assign available = site.courses | where: "status", "available" %}
 {% assign coming    = site.courses | where: "status", "coming-soon" %}
-{% assign archived  = site.courses | where: "status", "archived" %}
-{% assign total     = available.size | plus: coming.size | plus: archived.size %}
+{%- comment -%} Archived courses temporarily hidden (see the commented dropdown option and grid section below). {%- endcomment -%}
+{% assign total     = available.size | plus: coming.size %}
 
 <div class="course-filter-bar">
   <div class="course-filter-bar__heading">
@@ -20,7 +20,7 @@
         <option value="all" selected>All Courses</option>
         <option value="available">Available Now</option>
         <option value="coming-soon">Coming Soon</option>
-        <option value="archived">Archived</option>
+        {%- comment -%}<option value="archived">Archived</option>{%- endcomment -%}
       </select>
       <span class="material-symbols-outlined course-filter-bar__select-icon" aria-hidden="true">expand_more</span>
     </span>
@@ -43,12 +43,14 @@
   {% for course in coming %}{% include course-card.html course=course %}{% endfor %}
   {% endif %}
 
+  {%- comment -%} Archived section temporarily hidden
   {% if archived.size > 0 %}
   <div class="course-divider" data-course-divider="archived">
     <span class="course-divider__label">Archived <span class="course-divider__count">{{ archived.size }} course{% unless archived.size == 1 %}s{% endunless %}</span></span>
   </div>
   {% for course in archived %}{% include course-card.html course=course %}{% endfor %}
   {% endif %}
+  {%- endcomment -%}
 </div>
 {% else %}
 <p class="empty-state">Courses are in development — <a href="https://www.youtube.com/@elastropy?sub_confirmation=1" rel="noopener noreferrer" target="_blank">subscribe on YouTube</a> to be the first to know.</p>
