@@ -133,9 +133,13 @@ Always use a template — never write frontmatter from scratch:
   read from the **`pages` collection via `site.collections`** — a direct `site.pages` lookup collides
   with Jekyll's built-in pages list and won't find it. The bar is theme-aware (primary fill +
   on-primary text, outlined button), so it blends in light and dark rather than a hard-coded blue.
-  It is **dismissible**: `notification.js` (deferred, loaded from the include like `theme.js`) hides
-  the bar on close and stores it in `localStorage`, keyed to the banner content
-  (`data-alert-key`), so editing the text/button re-shows the bar to everyone.
+  The **dismiss (X) button and the `notification.js` script are both commented out** in
+  `notification.html` by request, so the bar is **not dismissible and always visible** on every page
+  until `enabled: false`. Note: the script had to be disabled too, not just the button — its
+  load-time check hid the bar for anyone with a prior dismissal stored in `localStorage`, which is
+  what made the bar stop displaying. To restore dismissal, un-comment **both** the button and the
+  script; `notification.js` then hides the bar on close and stores the dismissal in `localStorage`,
+  keyed to the banner content (`data-alert-key`), so editing the text/button re-shows it to everyone.
 
 - **Contact page** (`_pages/contact.md`, `_includes/contact-channels.html`,
   `_sass/4-components/_contact.scss`): the `/contact/` page is a **"How To Reach Us"** intro block

@@ -19,10 +19,19 @@
     {%- if notif.button_text and notif.button_url -%}
     <a class="alert-bar__btn" href="{{ notif.button_url }}" target="_blank" rel="noopener noreferrer">{{ notif.button_text }}</a>
     {%- endif -%}
+    {%- comment -%} Dismiss (X) button removed by request — the bar stays visible on
+      every page (until enabled: false). The notification.js dismiss script below is
+      also disabled: with no button its only remaining effect was hiding the bar for
+      anyone who had previously dismissed it (a stored localStorage flag), which kept
+      the bar from showing. Un-comment BOTH the button and the script to restore
+      dismissal.
     <button class="alert-bar__close" id="alert-bar-close" type="button" aria-label="Dismiss announcement">
       <span class="material-symbols-outlined" aria-hidden="true">close</span>
     </button>
+    {%- endcomment -%}
   </div>
 </aside>
+{%- comment -%}
 <script defer src="{{ '/assets/js/features/notification.js' | relative_url }}"></script>
+{%- endcomment -%}
 {%- endif -%}
