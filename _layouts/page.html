@@ -7,9 +7,26 @@ layout: default
   <header class="page-header">
     <div class="container{% unless page.wide %} container--narrow{% endunless %}">
       {% include breadcrumbs.html current=page.title %}
+      {% if page.header_include %}
+      {%- comment -%} Pages may inject an actions control (e.g. the course filter)
+          beside the title via `header_include` in front matter. Other pages skip
+          this branch entirely and render exactly as before. {%- endcomment -%}
+      <div class="page-header__row">
+        <div class="page-header__text">
+          <h1 class="page-header__title">{{ page.title }}</h1>
+          {% if page.description %}
+          <p class="page-header__desc">{{ page.description }}</p>
+          {% endif %}
+        </div>
+        <div class="page-header__actions">
+          {% include {{ page.header_include }} %}
+        </div>
+      </div>
+      {% else %}
       <h1 class="page-header__title">{{ page.title }}</h1>
       {% if page.description %}
       <p class="page-header__desc">{{ page.description }}</p>
+      {% endif %}
       {% endif %}
     </div>
   </header>

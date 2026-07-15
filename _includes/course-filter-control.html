@@ -1,0 +1,22 @@
+{%- comment -%}
+  Segmented filter control for the Courses page header. Rendered into the page
+  header via the layout's `header_include` slot (set in _pages/courses.md).
+  Counts are static totals; assets/js/features/course-filter.js toggles the
+  active button and shows/hides cards in the grid below (no page reload). The
+  grid + dividers + script live in course-filter.html (the page body).
+{%- endcomment -%}
+{% assign available = site.courses | where: "status", "available" %}
+{% assign coming    = site.courses | where: "status", "coming-soon" %}
+{% assign total     = available.size | plus: coming.size %}
+
+<div class="course-seg" role="group" aria-label="Filter courses" data-course-filter>
+  <button type="button" class="course-seg__btn is-active" data-filter="all" aria-pressed="true">
+    All <span class="course-seg__count">{{ total }}</span>
+  </button>
+  <button type="button" class="course-seg__btn" data-filter="available" aria-pressed="false">
+    Available <span class="course-seg__count">{{ available.size }}</span>
+  </button>
+  <button type="button" class="course-seg__btn" data-filter="coming-soon" aria-pressed="false">
+    Coming Soon <span class="course-seg__count">{{ coming.size }}</span>
+  </button>
+</div>

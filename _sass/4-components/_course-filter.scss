@@ -1,76 +1,53 @@
-// ── Course filter bar ──────────────────────────────────────────────────────────
-.course-filter-bar {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
+// ── Course filter — segmented control ──────────────────────────────────────────
+// A pill group (All / Available / Coming Soon, each with a count) rendered in the
+// Courses page header. All-token colours → light/dark automatic. Driven by
+// assets/js/features/course-filter.js. Markup: _includes/course-filter-control.html
+.course-seg {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--shape-full);
 
-  &__heading {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-  }
+  &__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: var(--shape-full);
+    background: transparent;
+    color: var(--color-on-surface-variant);
+    font-family: var(--font-sans);
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background var(--motion-duration-short2) var(--motion-easing-standard),
+      color var(--motion-duration-short2) var(--motion-easing-standard);
 
-  &__title {
-    font-family: var(--font-brand);
-    font-size: var(--type-headline-small);
-    color: var(--color-on-surface);
+    &:hover:not(.is-active) {
+      background: color-mix(in srgb, var(--color-on-surface) 8%, transparent);
+      color: var(--color-on-surface);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    &.is-active {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+    }
   }
 
   &__count {
-    font-size: var(--type-body-medium);
-    color: var(--color-on-surface-variant);
-  }
-
-  &__control {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-  }
-
-  &__label {
-    font-size: var(--type-label-large);
-    font-weight: 500;
-    color: var(--color-on-surface-variant);
-  }
-
-  &__select-wrap {
-    position: relative;
-    display: inline-flex;
-  }
-
-  &__select-icon {
-    position: absolute;
-    right: var(--space-3);
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--color-on-surface-variant);
-    pointer-events: none;
-  }
-}
-
-.select {
-  appearance: none;
-  -webkit-appearance: none;
-  padding: var(--space-2) var(--space-10) var(--space-2) var(--space-4);
-  border: 1px solid var(--color-outline);
-  border-radius: var(--shape-full);
-  background: var(--color-surface);
-  color: var(--color-on-surface);
-  font-family: var(--font-sans);
-  font-size: var(--type-body-medium);
-  cursor: pointer;
-  transition: border-color var(--motion-duration-short2) var(--motion-easing-standard);
-
-  &:hover { border-color: var(--color-primary); }
-
-  &:focus-visible {
-    outline: none;
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 2px var(--color-focus-ring);
+    font-weight: 700;
+    opacity: 0.9;
   }
 }
 

@@ -1,21 +1,15 @@
 (function () {
   'use strict';
 
-  var LABELS = {
-    all: 'All Courses',
-    available: 'Available Now',
-    'coming-soon': 'Coming Soon'
-    // archived: 'Archived'   // archived temporarily hidden
-  };
+  var FILTERS = { all: 1, available: 1, 'coming-soon': 1 };
 
   document.addEventListener('DOMContentLoaded', function () {
-    var select = document.querySelector('[data-course-filter-select]');
+    var group = document.querySelector('[data-course-filter]');
     var grid = document.querySelector('[data-course-grid]');
-    var title = document.querySelector('[data-course-filter-title]');
-    var count = document.querySelector('[data-course-filter-count]');
 
-    if (!select || !grid) return;
+    if (!group || !grid) return;
 
+    var buttons = group.querySelectorAll('[data-filter]');
     var cards = grid.querySelectorAll('.course-card');
     var dividers = grid.querySelectorAll('[data-course-divider]');
 
@@ -23,7 +17,7 @@
     // page refresh and can be linked/bookmarked.
     function readFilter() {
       var value = new URLSearchParams(window.location.search).get('show');
-      return LABELS.hasOwnProperty(value) ? value : 'all';
+      return FILTERS.hasOwnProperty(value) ? value : 'all';
     }
 
     function writeFilter(value) {
@@ -37,32 +31,34 @@
     }
 
     function apply(value) {
-      var visible = 0;
-
       cards.forEach(function (card) {
         var match = value === 'all' || card.dataset.status === value;
         card.hidden = !match;
-        if (match) visible += 1;
       });
 
+      // In "all" view the group dividers label each section; when a single
+      // status is selected they're redundant, so hide them.
       dividers.forEach(function (divider) {
         divider.hidden = value !== 'all';
       });
 
       grid.classList.toggle('course-grid--flat', value !== 'all');
 
-      if (title) title.textContent = LABELS[value] || LABELS.all;
-      if (count) count.textContent = visible + (visible === 1 ? ' course' : ' courses');
+      buttons.forEach(function (btn) {
+        var active = btn.dataset.filter === value;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
     }
 
-    select.addEventListener('change', function () {
-      writeFilter(this.value);
-      apply(this.value);
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        writeFilter(btn.dataset.filter);
+        apply(btn.dataset.filter);
+      });
     });
 
     // Restore the filter from the URL on load (e.g. after a refresh).
-    var initial = readFilter();
-    select.value = initial;
-    apply(initial);
+    apply(readFilter());
   });
 }());

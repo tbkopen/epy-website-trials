@@ -254,6 +254,26 @@ Superseded the original plan (gradient-mesh, centered layout) with a two-column
   A link URL containing `://` opens in a new tab (`target="_blank" rel="noopener"`); `mailto:` stays
   in-page. All colours are tokens → light/dark automatic. Grid: **4→2→1** at 1024px / 560px.
 
+### 4.9 Courses filter → segmented header control — DONE (branch `feature/hero-redesign`)
+- Replaced the "Show [dropdown]" filter (which sat above the grid) with a **segmented pill control**
+  (`All N` / `Available N` / `Coming Soon N`) placed in the **page header**, right of the title/description.
+- **Generic, opt-in header slot** (keeps other pages untouched): `_layouts/page.html` renders a
+  `.page-header__row` (`__text` + `__actions`) **only when a page sets `header_include` in front matter**;
+  otherwise it takes the original `else` branch and emits byte-identical markup. `courses.md` sets
+  `header_include: course-filter-control.html`. The include name is resolved with Jekyll's dynamic
+  `{% include {{ page.header_include }} %}`.
+- **Split include**: `_includes/course-filter-control.html` = the segmented buttons (in the header);
+  `_includes/course-filter.html` = the grid + group dividers + `<script>` (the page body). The old
+  `.course-filter-bar` / `.select` styles were removed; new `.course-seg` component added.
+- **JS** (`course-filter.js`) rewritten to drive buttons instead of a `<select>`: toggles `.is-active`
+  + `aria-pressed`, shows/hides cards by `data-status`, hides dividers when a single status is active,
+  and persists the choice in the URL (`?show=…`). Counts on the buttons are static totals.
+- Segmented control uses all-token colours (active = `--color-primary` fill) → **light/dark automatic**;
+  `.page-header__actions` gets `overflow-x: auto` < 560px so it never forces horizontal page scroll.
+- **Cache-buster**: the `<script>` src carries `?v={{ site.time | date: '%s' }}`. Because this script's
+  contract changed (dropdown → buttons), a browser holding the old cached copy would silently no-op
+  (it queried a `<select>` that no longer exists); tying the URL to the build time forces a fresh fetch.
+
 ### Acceptance
 - No `{% capture %}` breadcrumb hacks remain (`grep -rn 'capture' _layouts/`).
 - Hero looks intentional and branded at 360px, 768px, 1280px.
@@ -409,7 +429,7 @@ Ordered by impact. Pick all for a flagship feel.
 **Components:** `_sass/4-components/{_chips,_cards,_forms,_breadcrumb,_search,_toc,_pagination,_buttons}.scss` + new `{_faq,_curriculum,_testimonials,_progress,_fab,_contact}.scss`
 **Utilities:** new `_sass/5-utilities/{_motion,_print}.scss`
 **Layouts:** `_layouts/{home,post,course,page,blog-index}.html`
-**Includes:** new `{about-strip,cover,reading-time,faq,curriculum,testimonials,contact-channels}.html`; edit `{breadcrumbs,footer,header,newsletter-form,post-meta,post-card,course-card,related-posts}.html`
+**Includes:** new `{about-strip,cover,reading-time,faq,curriculum,testimonials,contact-channels,course-filter-control}.html`; edit `{breadcrumbs,footer,header,newsletter-form,post-meta,post-card,course-card,related-posts,course-filter}.html`
 **Data:** `_data/navigation.yml` (4th footer column), `_data/authors.yml` (bio/avatar)
 **Config:** `_config.yml` (excerpt separator, autopages/archives), `main.scss` (register new partials)
 **JS:** new `assets/js/features/{progress,fab,palette}.js`; refine `{toc,theme,search,copy-code,math}.js`

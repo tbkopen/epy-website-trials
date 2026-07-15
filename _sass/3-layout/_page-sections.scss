@@ -221,6 +221,32 @@
     max-width: 60ch;
     line-height: var(--lh-relaxed);
   }
+
+  // Title/description on the left, an actions control (e.g. course filter) on the
+  // right. Only rendered when a page sets `header_include`; wraps to stacked on
+  // narrow screens. Pages without header actions never emit this markup.
+  &__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  &__text {
+    flex: 1 1 26rem;
+    min-width: 0;
+  }
+
+  &__actions {
+    flex: 0 0 auto;
+    max-width: 100%;
+
+    @media (max-width: 560px) {
+      width: 100%;
+      overflow-x: auto;   // keep a wide segmented control from forcing page scroll
+    }
+  }
 }
 
 // Blog index layout

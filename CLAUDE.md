@@ -151,6 +151,23 @@ Always use a template — never write frontmatter from scratch:
   automatic**; the grid is **responsive 4 → 2 → 1** (1024px / 560px). See `IMPLEMENTATION-PLAN.md`
   §4.8.
 
+- **Courses page filter** (`_includes/course-filter-control.html`, `_includes/course-filter.html`,
+  `_sass/4-components/_course-filter.scss`, `assets/js/features/course-filter.js`, `_layouts/page.html`):
+  the `/courses/` filter is a **segmented pill control** (`All N` / `Available N` / `Coming Soon N`)
+  in the **page header**, not a dropdown above the grid. It's placed there via a **generic, opt-in
+  header slot**: `page.html` renders `.page-header__row` (`__text` + `__actions`) **only when a page
+  sets `header_include` in front matter** (`courses.md` → `header_include: course-filter-control.html`),
+  resolved with Jekyll's dynamic `{% include {{ page.header_include }} %}`; every other page hits the
+  unchanged `else` branch and renders **exactly as before** — do not assume the header changed
+  site-wide. The control markup (segmented buttons) lives in `course-filter-control.html`; the grid +
+  group dividers + filter `<script>` stay in `course-filter.html`. `course-filter.js` toggles
+  `.is-active`/`aria-pressed`, shows/hides cards by `data-status`, hides the group dividers when a
+  single status is selected, and persists the choice in the URL (`?show=…`). Button counts are static
+  totals. Active pill = `--color-primary` fill; all-token colours → **light/dark automatic**. The
+  filter `<script>` src carries a `?v={{ site.time | date: '%s' }}` cache-buster so a browser holding
+  the pre-redesign cached copy (which queried the removed `<select>`) can't silently no-op. See
+  `IMPLEMENTATION-PLAN.md` §4.9.
+
 ---
 
 ## Key Files to Read First

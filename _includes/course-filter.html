@@ -7,26 +7,11 @@
 {% assign coming    = site.courses | where: "status", "coming-soon" %}
 {%- comment -%} Archived courses temporarily hidden (see the commented dropdown option and grid section below). {%- endcomment -%}
 {% assign total     = available.size | plus: coming.size %}
-
-<div class="course-filter-bar">
-  <div class="course-filter-bar__heading">
-    <h2 class="course-filter-bar__title" data-course-filter-title>All Courses</h2>
-    <span class="course-filter-bar__count" data-course-filter-count>{{ total }} course{% unless total == 1 %}s{% endunless %}</span>
-  </div>
-  <div class="course-filter-bar__control">
-    <label class="course-filter-bar__label" for="course-filter-select">Show</label>
-    <span class="course-filter-bar__select-wrap">
-      <select class="select course-filter-bar__select" id="course-filter-select" data-course-filter-select>
-        <option value="all" selected>All Courses</option>
-        <option value="available">Available Now</option>
-        <option value="coming-soon">Coming Soon</option>
-        {%- comment -%}<option value="archived">Archived</option>{%- endcomment -%}
-      </select>
-      <span class="material-symbols-outlined course-filter-bar__select-icon" aria-hidden="true">expand_more</span>
-    </span>
-  </div>
-</div>
-
+{%- comment -%}
+  The filter control (segmented buttons) is rendered in the page header via the
+  layout's `header_include` slot — see _includes/course-filter-control.html.
+  This partial renders only the grid + group dividers and loads the filter JS.
+{%- endcomment -%}
 {% if total > 0 %}
 <div class="course-grid" data-course-grid>
   {% if available.size > 0 %}
@@ -56,4 +41,9 @@
 <p class="empty-state">Courses are in development — <a href="https://www.youtube.com/@elastropy?sub_confirmation=1" rel="noopener noreferrer" target="_blank">subscribe on YouTube</a> to be the first to know.</p>
 {% endif %}
 
-<script defer src="{{ '/assets/js/features/course-filter.js' | relative_url }}"></script>
+{%- comment -%}
+  Cache-buster (?v=build time): this script's contract changed (dropdown → segmented
+  buttons), so a browser holding the old cached copy would silently no-op. Tying the
+  URL to site.time forces a fresh fetch after any rebuild.
+{%- endcomment -%}
+<script defer src="{{ '/assets/js/features/course-filter.js' | relative_url }}?v={{ site.time | date: '%s' }}"></script>
