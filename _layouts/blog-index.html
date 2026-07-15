@@ -4,6 +4,7 @@ layout: default
 
 <div class="page-header">
   <div class="container">
+    {% include breadcrumbs.html current=page.title %}
     <h1 class="page-header__title">Blog</h1>
     {% if page.content and page.content != '' %}
     <div class="page-header__desc">{{ page.content }}</div>

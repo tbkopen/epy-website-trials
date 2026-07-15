@@ -19,9 +19,10 @@
   &__sep {
     display: flex;
     align-items: center;
+    padding: 0 var(--space-1);
     color: var(--color-on-surface-variant);
-
-    .material-symbols-outlined { font-size: 18px; }
+    font-size: var(--type-label-large);
+    user-select: none;
   }
 
   &__link {

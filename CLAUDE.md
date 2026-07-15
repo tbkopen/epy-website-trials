@@ -137,6 +137,20 @@ Always use a template — never write frontmatter from scratch:
   the bar on close and stores it in `localStorage`, keyed to the banner content
   (`data-alert-key`), so editing the text/button re-shows the bar to everyone.
 
+- **Contact page** (`_pages/contact.md`, `_includes/contact-channels.html`,
+  `_sass/4-components/_contact.scss`): the `/contact/` page is a **"How To Reach Us"** intro block
+  followed by a **channel card grid** (Email, Telegram, WhatsApp, YouTube & Community). It is
+  **data-driven**: the channel content (`icon`, `title`, `description`, `links[]`) and the `intro`
+  paragraph live in **`contact.md` front matter**; the page body is just
+  `{% include contact-channels.html %}`, and the include reads `page.channels` / `page.intro` and
+  owns the markup (no CSS classes in the content file). To add/edit a channel, edit the front
+  matter — `icon` is a **Material Symbols** name (`mail`, `send`, `chat`, `smart_display`). A link
+  whose `url` contains `://` opens in a new tab (`target="_blank" rel="noopener"`); `mailto:`/`tel:`
+  stay in-page. The page is **`wide: true`** so the header (breadcrumb + title) and the grid share
+  the full `.container` width. Cards use an MD3 icon badge and all-token colours → **light/dark
+  automatic**; the grid is **responsive 4 → 2 → 1** (1024px / 560px). See `IMPLEMENTATION-PLAN.md`
+  §4.8.
+
 ---
 
 ## Key Files to Read First

@@ -1,0 +1,125 @@
+// ── Contact channels ──────────────────────────────────────────────────────────
+// "How To Reach Us" section on the Contact page: an intro block followed by a
+// responsive grid of channel cards. All colours are tokens, so it adapts to
+// light/dark automatically. Markup: _includes/contact-channels.html
+.contact {
+  &__intro {
+    max-width: 65ch;
+    margin-bottom: var(--space-10);
+  }
+
+  &__heading {
+    font-family: var(--font-brand);
+    font-size: var(--type-headline-small);
+    line-height: var(--type-headline-small-lh);
+    color: var(--color-on-surface);
+    margin-bottom: var(--space-4);
+  }
+
+  &__lead {
+    font-size: var(--type-body-large);
+    line-height: var(--lh-relaxed);
+    color: var(--color-on-surface-variant);
+    margin: 0;
+  }
+
+  // 4-up on desktop → 2-up on tablet → 1-up on mobile.
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    @media (max-width: 1024px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 560px)  { grid-template-columns: 1fr; }
+  }
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--color-surface-container-low);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--shape-large);
+  transition:
+    border-color var(--motion-duration-short2) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-medium1) var(--motion-easing-standard),
+    transform var(--motion-duration-medium1) var(--motion-easing-standard);
+
+  &:hover {
+    border-color: var(--color-outline);
+    box-shadow: var(--elevation-2);
+    transform: translateY(-3px);
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--shape-medium);
+    background: color-mix(in srgb, var(--color-primary) 12%, var(--color-surface));
+    color: var(--color-primary);
+    margin-bottom: var(--space-1);
+
+    .material-symbols-outlined { font-size: 24px; }
+  }
+
+  &__title {
+    font-size: var(--type-title-medium);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+  }
+
+  &__desc {
+    font-size: var(--type-body-medium);
+    line-height: var(--lh-relaxed);
+    color: var(--color-on-surface-variant);
+    margin: 0;
+    flex: 1;   // pushes the links row to the bottom so link rows align across cards
+  }
+
+  // Links sit inline on one row at the bottom of the card (cards with two
+  // links — e.g. Telegram — lay them side by side, wrapping only if too narrow),
+  // so every card's link row aligns.
+  &__links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin-top: var(--space-2);
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    align-self: flex-start;
+    font-size: var(--type-label-large);
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+      transition: transform var(--motion-duration-short2) var(--motion-easing-standard);
+    }
+
+    &:hover {
+      text-decoration: underline;
+      .material-symbols-outlined { transform: translateX(3px); }
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--color-focus-ring);
+      outline-offset: 3px;
+      border-radius: var(--shape-extra-small);
+    }
+  }
+}

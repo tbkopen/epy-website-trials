@@ -239,6 +239,21 @@ Superseded the original plan (gradient-mesh, centered layout) with a two-column
 ### 4.7 Newsletter panel
 - Wrap `newsletter-form.html` markup in a `--color-primary-container` panel (`--shape-large`, `--space-8` padding) per spec; ensure input + button share height (48px) and the row collapses < 600px.
 
+### 4.8 Contact page redesign — DONE (branch `feature/hero-redesign`)
+- Replaced the bare markdown list on `/contact/` with a **"How To Reach Us"** intro block + a
+  **channel card grid** (Email, Telegram, WhatsApp, YouTube & Community).
+- **Data-driven, architecture-clean**: the channel content (icon, title, description, links) lives
+  in `_pages/contact.md` **front matter** (`intro`, `channels[]`); the new
+  `_includes/contact-channels.html` owns the markup and reads that data; `_sass/4-components/_contact.scss`
+  owns all visuals. No CSS classes in the content file — its body is a single
+  `{% include contact-channels.html %}`.
+- The page is now `wide: true`, so its header (breadcrumb + title) and the card grid share the full
+  `.container` width (see the wide-page header fix in `_layouts/page.html`).
+- Cards: MD3 icon badge (`color-mix(primary 12%, surface)` bg + primary Material Symbol), title,
+  muted description (`flex: 1` so link rows bottom-align across a row), and one-or-more arrow links.
+  A link URL containing `://` opens in a new tab (`target="_blank" rel="noopener"`); `mailto:` stays
+  in-page. All colours are tokens → light/dark automatic. Grid: **4→2→1** at 1024px / 560px.
+
 ### Acceptance
 - No `{% capture %}` breadcrumb hacks remain (`grep -rn 'capture' _layouts/`).
 - Hero looks intentional and branded at 360px, 768px, 1280px.
@@ -391,10 +406,10 @@ Ordered by impact. Pick all for a flagship feel.
 ## 10. File-Change Index (quick reference)
 
 **Tokens/base:** `_sass/1-tokens/_root.scss`, `_sass/2-base/_typography.scss`, `_sass/2-base/_reset.scss`, `_includes/head.html`
-**Components:** `_sass/4-components/{_chips,_cards,_forms,_breadcrumb,_search,_toc,_pagination,_buttons}.scss` + new `{_faq,_curriculum,_testimonials,_progress,_fab}.scss`
+**Components:** `_sass/4-components/{_chips,_cards,_forms,_breadcrumb,_search,_toc,_pagination,_buttons}.scss` + new `{_faq,_curriculum,_testimonials,_progress,_fab,_contact}.scss`
 **Utilities:** new `_sass/5-utilities/{_motion,_print}.scss`
 **Layouts:** `_layouts/{home,post,course,page,blog-index}.html`
-**Includes:** new `{about-strip,cover,reading-time,faq,curriculum,testimonials}.html`; edit `{breadcrumbs,footer,header,newsletter-form,post-meta,post-card,course-card,related-posts}.html`
+**Includes:** new `{about-strip,cover,reading-time,faq,curriculum,testimonials,contact-channels}.html`; edit `{breadcrumbs,footer,header,newsletter-form,post-meta,post-card,course-card,related-posts}.html`
 **Data:** `_data/navigation.yml` (4th footer column), `_data/authors.yml` (bio/avatar)
 **Config:** `_config.yml` (excerpt separator, autopages/archives), `main.scss` (register new partials)
 **JS:** new `assets/js/features/{progress,fab,palette}.js`; refine `{toc,theme,search,copy-code,math}.js`
