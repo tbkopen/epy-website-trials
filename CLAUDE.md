@@ -39,6 +39,7 @@ See `.claude/rules.md` for all rules that apply when working in this repo.
 ```
 .
 ├── _posts/           # Published blog posts (YYYY-MM-DD-slug.md)
+├── _draftsposts/     # Archived posts moved out of _posts — NOT a Jekyll collection, so not built/published (restore by moving files back to _posts/)
 ├── _drafts/          # Unpublished drafts (no date prefix needed)
 ├── _courses/         # Course collection (one .md per course)
 ├── _pages/           # Static pages (about, contact, courses index, etc.)
