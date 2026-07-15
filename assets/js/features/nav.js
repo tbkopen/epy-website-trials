@@ -4,6 +4,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var toggle = document.getElementById('nav-toggle');
     var nav    = document.getElementById('primary-nav');
+    var close  = document.getElementById('nav-close');
     if (!toggle || !nav) return;
 
     var focusableSelectors = 'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])';
@@ -48,6 +49,8 @@
         openNav();
       }
     });
+
+    if (close) close.addEventListener('click', closeNav);
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && nav.classList.contains('site-nav--open')) closeNav();

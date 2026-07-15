@@ -183,6 +183,14 @@ Always use a template — never write frontmatter from scratch:
   below. If you add a header, use `.container` (or `.container` when `wide`, per `page.html`), never
   `.container--narrow`, or the breadcrumb will be misaligned. See `IMPLEMENTATION-PLAN.md` §4.1.
 
+- **Mobile nav menu** (`_includes/header.html`, `assets/js/features/nav.js`, `_sass/3-layout/_header.scss`):
+  on ≤768px the primary nav opens as a **full-viewport overlay** (`position: fixed; inset: 0;
+  z-index: 200`) that covers the announcement bar and header — it no longer starts below the header
+  (`top: var(--header-height)`) with the banner peeking through. It has a dedicated **close (X)
+  button** (`#nav-close`, top-right, `.site-nav__close` — hidden on desktop) wired to `closeNav` in
+  `nav.js`; Escape and tapping a nav link also close it. The menu scrolls internally
+  (`overflow-y: auto`).
+
 - **Site-wide variables** (`_pages/site-variables.md`): a **config-only markdown file** holding
   common values reused across the project (same pattern as `notification.md` — `layout: null`,
   `ref: site-variables`, read from the **`pages` collection via `site.collections`**, never a direct

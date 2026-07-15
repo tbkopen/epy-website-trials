@@ -90,6 +90,19 @@
   &__cta {
     margin-left: var(--space-4);
   }
+
+  // Menu header row (logo + close) lives inside the mobile overlay; hidden on desktop.
+  &__header {
+    display: none;
+  }
+
+  &__brand {
+    text-decoration: none;
+  }
+
+  &__close {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -98,15 +111,27 @@
 
   .site-nav {
     position: fixed;
-    inset: 0;
-    top: var(--header-height);
+    inset: 0;                 // full viewport — covers the banner + header
     flex-direction: column;
     align-items: stretch;
     padding: var(--space-4);
     background: var(--color-surface);
-    z-index: 99;
+    z-index: 200;             // above the header (100) and the announcement bar
+    overflow-y: auto;
     transform: translateY(-110%);
     transition: transform var(--motion-duration-medium1) var(--motion-easing-standard);
+
+    // Menu header: logo top-left, close (X) top-right.
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    &__close {
+      display: flex;
+    }
 
     &__list {
       flex-direction: column;
