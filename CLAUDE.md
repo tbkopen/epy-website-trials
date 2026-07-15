@@ -183,6 +183,16 @@ Always use a template — never write frontmatter from scratch:
   below. If you add a header, use `.container` (or `.container` when `wide`, per `page.html`), never
   `.container--narrow`, or the breadcrumb will be misaligned. See `IMPLEMENTATION-PLAN.md` §4.1.
 
+- **Site-wide variables** (`_pages/site-variables.md`): a **config-only markdown file** holding
+  common values reused across the project (same pattern as `notification.md` — `layout: null`,
+  `ref: site-variables`, read from the **`pages` collection via `site.collections`**, never a direct
+  `site.pages` lookup). First variable: **`featured_course`** = a course `uid`. The featured-course
+  widget (`_includes/course-cta.html`, blog index sidebar) looks up the course whose `uid` matches
+  `featured_course` and shows its details, linking the button to that course's external `course-link`
+  (new tab when it's a URL; same external/internal handling as `course-card.html`). Change the `uid`
+  in `site-variables.md` to feature a different course. Falls back to the first available course if
+  the uid matches none. Add further shared variables to this file.
+
 - **Post header image removed** (`_layouts/post.html`): the post header **cover/hero image is
   commented out** by request, so no post shows a header image (the header is breadcrumb → title →
   meta only). This disables both branches — an uploaded `page.image` **and** the generated

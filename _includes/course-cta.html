@@ -1,6 +1,28 @@
-{% assign courses = site.courses | where: "status", "available" | limit: 1 %}
-{% if courses.size > 0 %}
-{% assign c = courses.first %}
+{%- comment -%}
+  Featured-course widget (blog index sidebar). The course shown is driven by the
+  `featured_course` variable (a course uid) in _pages/site-variables.md — change
+  that uid to feature a different course; this widget then shows that course's
+  details and links to its external `course-link`.
+
+  The pages-collection lookup mirrors notification.html (a direct site.pages lookup
+  collides with Jekyll's built-in pages list). The external-vs-internal link
+  handling mirrors course-card.html: a `course-link` containing "://" opens in a
+  new tab; otherwise it's a baseurl-safe internal link. Falls back to the first
+  available course if the configured uid matches no course.
+{%- endcomment -%}
+{% assign pages_collection = site.collections | where: "label", "pages" | first %}
+{% assign site_vars = pages_collection.docs | where: "ref", "site-variables" | first %}
+{% assign c = site.courses | where: "uid", site_vars.featured_course | first %}
+{% unless c %}{% assign c = site.courses | where: "status", "available" | first %}{% endunless %}
+{% if c %}
+{% assign course_link = c['course-link'] | default: c.url %}
+{% if course_link contains '://' %}
+  {% assign course_href = course_link %}
+  {% assign course_target = ' target="_blank" rel="noopener noreferrer"' %}
+{% else %}
+  {% assign course_href = course_link | relative_url %}
+  {% assign course_target = '' %}
+{% endif %}
 <aside class="course-cta course-cta--featured card" aria-label="Featured course">
   <p class="course-cta__ribbon">★ Featured course</p>
   <div class="card__content">
@@ -8,7 +30,7 @@
     {% if c.description %}
     <p class="course-cta__desc">{{ c.description | truncate: 100 }}</p>
     {% endif %}
-    <a class="btn btn--filled course-cta__button" href="{{ c.url | relative_url }}">Learn more →</a>
+    <a class="btn btn--filled course-cta__button" href="{{ course_href }}"{{ course_target }}>Learn more →</a>
   </div>
 </aside>
 {% endif %}
