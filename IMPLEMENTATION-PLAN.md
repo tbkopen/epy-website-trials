@@ -132,6 +132,15 @@ These are concrete defects found by reading every source file against the spec, 
 - In `_layouts/post.html`, `course.html`, `page.html`: **delete the inline `{% capture %}` blocks** and call the include once with the right crumb list.
 - `_sass/4-components/_breadcrumb.scss`: separator via icon, not `/`.
 
+**DONE / superseded (branch `feature/hero-redesign`)**: the single reusable
+`breadcrumbs.html` is called once from every header, and by request the separator is a
+**`/` slash** (not the `chevron_right` icon originally specced) — `breadcrumb__sep` styles the
+slash. **Header alignment**: the breadcrumb must line up across pages, so every page header uses
+the **full `.container`** — `blog-index.html` and `page.html` (wide) already did; `post.html` was
+changed from `.container--narrow` to `.container` so the post breadcrumb + title + cover align with
+the Blog/Courses headers (and with the post body below, which also uses the full container). The
+post `cover--header` is a wide **24/9** banner, so full width reads as a hero, not an oversized block.
+
 ### 4.2 Hero redesign (`home.html` + `_page-sections.scss`) — DONE (branch `feature/hero-redesign`)
 
 Superseded the original plan (gradient-mesh, centered layout) with a two-column

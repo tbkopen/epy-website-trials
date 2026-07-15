@@ -5,13 +5,19 @@ layout: default
 <article class="post" itemscope itemtype="https://schema.org/BlogPosting" data-pagefind-body>
 
   <header class="post-header">
-    <div class="container container--narrow">
+    {%- comment -%} Full-width container (not --narrow) so the breadcrumb + title
+        align with the Blog index and Courses page headers, and with the post body
+        below (which also uses the full .container). {%- endcomment -%}
+    <div class="container">
       {% include breadcrumbs.html l1_label="Blog" l1_url="/blog/" current=page.title %}
 
       <h1 class="post-header__title" itemprop="headline">{{ page.title }}</h1>
 
       {% include post-meta.html %}
 
+      {%- comment -%} Post header cover image removed by request — no hero image on any
+        post. (JSON-LD below still emits page.image if one is set, for SEO/social cards.)
+        To restore the visible header image, un-comment this block.
       {% if page.image %}
       <img class="post-header__image"
            src="{{ page.image | relative_url }}"
@@ -22,6 +28,7 @@ layout: default
       {% else %}
       {% include cover.html seed=page.url title=page.title class="cover--header" %}
       {% endif %}
+      {%- endcomment -%}
     </div>
   </header>
 

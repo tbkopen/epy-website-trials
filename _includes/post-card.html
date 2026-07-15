@@ -1,6 +1,9 @@
 {% assign p = include.post %}
 {% assign is_row = include.variant == "row" %}
 <article class="post-card card card--elevated{% if is_row %} post-card--row{% endif %}{% if is_row and p.pinned %} post-card--pinned{% endif %}" data-pagefind-ignore>
+  {%- comment -%} Card thumbnail removed by request — text-only post cards. Removing this
+    also required dropping the 200px image column from `.post-card--row` in _cards.scss.
+    To restore thumbnails, un-comment this block AND revert that grid change.
   <a class="post-card__image-link" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
     {% if p.image %}
     <img class="post-card__image" src="{{ p.image | relative_url }}" alt="{{ p.image_alt | default: p.title }}" loading="lazy" decoding="async" width="800" height="450">
@@ -8,6 +11,7 @@
     <span class="post-card__image">{% include cover.html seed=p.url title=p.title %}</span>
     {% endif %}
   </a>
+  {%- endcomment -%}
   <div class="post-card__body card__content">
     {% if is_row and p.pinned %}
     <span class="post-card__pinned-badge">Pinned</span>

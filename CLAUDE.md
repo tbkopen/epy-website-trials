@@ -172,7 +172,26 @@ Always use a template — never write frontmatter from scratch:
   the pre-redesign cached copy (which queried the removed `<select>`) can't silently no-op. See
   `IMPLEMENTATION-PLAN.md` §4.9.
 
----
+- **Breadcrumbs** (`_includes/breadcrumbs.html`, `_sass/4-components/_breadcrumb.scss`): one reusable
+  include used by every header (`page.html`, `blog-index.html`, `post.html`, `course.html`,
+  `archive.html`). `Home` is always prepended; callers pass `l1_*`/`current`. Separators are a **`/`
+  slash** (not a Material icon). **Alignment rule**: every page header renders the breadcrumb inside
+  the **full `.container`** so the crumb left-edge lines up across Blog, Courses, Contact, and posts.
+  `post.html` in particular uses `.container` (not `.container--narrow`) for its header for exactly
+  this reason — so its breadcrumb/title/cover align with the other pages and with the post body
+  below. If you add a header, use `.container` (or `.container` when `wide`, per `page.html`), never
+  `.container--narrow`, or the breadcrumb will be misaligned. See `IMPLEMENTATION-PLAN.md` §4.1.
+
+- **Post header image removed** (`_layouts/post.html`): the post header **cover/hero image is
+  commented out** by request, so no post shows a header image (the header is breadcrumb → title →
+  meta only). This disables both branches — an uploaded `page.image` **and** the generated
+  `cover.html` Σ banner. `page.image` is still emitted in the post's JSON-LD for SEO/social cards.
+  **Post card thumbnails are also removed** (`post-card.html`): the card image block is commented
+  out, so blog-index / home / related-posts cards are **text-only** (date · category, title,
+  excerpt). This required dropping the `200px` image column from `.post-card--row` in
+  `_cards.scss` (now `display: block`, full-width body) — otherwise row cards showed an empty
+  gap. To restore thumbnails, un-comment the block in `post-card.html` **and** revert that
+  `.post-card--row` grid change. Un-comment the block in `post.html` to restore the post hero.
 
 ## Key Files to Read First
 

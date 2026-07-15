@@ -117,19 +117,10 @@
     overflow: hidden;
   }
 
-  // Blog index: horizontal row (thumbnail left, content right)
+  // Blog index: horizontal row. Thumbnails were removed (text-only cards), so the
+  // former 200px image column is gone — the body spans the full card width.
   &--row {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    align-items: stretch;
-
-    .post-card__image-link { height: 100%; }
-
-    .post-card__image,
-    .post-card__image .cover {
-      height: 100%;
-      aspect-ratio: auto;
-    }
+    display: block;
 
     .post-card__body {
       display: flex;
@@ -139,18 +130,6 @@
 
     .post-card__excerpt {
       -webkit-line-clamp: 2;
-    }
-
-    @media (max-width: 560px) {
-      grid-template-columns: 1fr;
-
-      .post-card__image-link { height: auto; }
-
-      .post-card__image,
-      .post-card__image .cover {
-        height: auto;
-        aspect-ratio: 16 / 9;
-      }
     }
   }
 
