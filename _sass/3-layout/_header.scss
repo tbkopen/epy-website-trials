@@ -15,15 +15,27 @@
   }
 
   &__logo {
+    display: flex;
+    align-items: center;
     text-decoration: none;
     margin-right: auto;
   }
 
-  &__logo-text {
-    font-size: var(--type-title-large);
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: -0.02em;
+  // Wordmark rendered as a CSS mask (not an <img>) so it takes the theme's
+  // primary color — see the comment in _includes/header.html for why.
+  &__logo-mark {
+    display: block;
+    height: 36px;
+    aspect-ratio: 371 / 91;
+    background-color: var(--color-primary);
+    -webkit-mask-image: var(--logo-mask);
+    mask-image: var(--logo-mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: left center;
+    mask-position: left center;
   }
 
   &__actions {
@@ -97,7 +109,23 @@
   }
 
   &__brand {
+    display: inline-flex;
     text-decoration: none;
+  }
+
+  &__brand-mark {
+    display: block;
+    height: 32px;
+    aspect-ratio: 371 / 91;
+    background-color: var(--color-primary);
+    -webkit-mask-image: var(--logo-mask);
+    mask-image: var(--logo-mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-position: left center;
+    mask-position: left center;
   }
 
   &__close {

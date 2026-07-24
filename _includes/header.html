@@ -1,15 +1,24 @@
 <header class="site-header" role="banner">
   <div class="site-header__inner container">
 
+    {%- comment -%}
+      The wordmark is a CSS mask (background-color: var(--color-primary) clipped
+      to logo-mark.png's alpha channel) rather than a plain <img>, so it recolors
+      itself with the theme's seed color and flips with it in dark mode — the
+      same behaviour the old text-based logo had via `color: var(--color-primary)`.
+      logo-mark.png is a white-on-transparent alpha mask generated from the
+      supplied logo.png (background removed). The mask URL is set inline because
+      _sass/** partials aren't Liquid-processed and can't use relative_url.
+    {%- endcomment -%}
     <a class="site-header__logo" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-      <span class="site-header__logo-text">{{ site.title }}</span>
+      <span class="site-header__logo-mark" aria-hidden="true" style="--logo-mask: url('{{ '/assets/images/ui/logo-mark.png' | relative_url }}');"></span>
     </a>
 
     {% assign current_nav_url = page.url | replace: 'index.html', '' %}
     <nav class="site-nav" aria-label="Primary navigation" id="primary-nav">
       <div class="site-nav__header">
         <a class="site-nav__brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
-          <span class="site-header__logo-text">{{ site.title }}</span>
+          <span class="site-nav__brand-mark" aria-hidden="true" style="--logo-mask: url('{{ '/assets/images/ui/logo-mark.png' | relative_url }}');"></span>
         </a>
         <button class="icon-btn site-nav__close" id="nav-close" type="button" aria-label="Close navigation menu">
           <span class="material-symbols-outlined">close</span>
